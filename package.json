@@ -1,0 +1,25 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "  Compares two configuration files and shows a difference.",
+  "type": "module",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rddeveloper2019/frontend-project-lvl2.git"
+  },
+  "author": "Ridvan Dzhalilov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rddeveloper2019/frontend-project-lvl2/issues"
+  },
+  "homepage": "https://github.com/rddeveloper2019/frontend-project-lvl2#readme",
+  "dependencies": {
+    "commander": "^8.2.0"
+  }
+}
