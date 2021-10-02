@@ -10,10 +10,11 @@ const getResultString = (separatedArray) => {
     temp.push(item);
   });
 
-  let resultString = '';
+  let resultString = '{\n';
   _.sortBy(temp, (el) => el[1]).forEach((element) => {
-    resultString += `${element[0]} ${element[1]}: ${element[2]}\n`;
+    resultString += `  ${element[0]} ${element[1]}: ${element[2]}\n`;
   });
+  resultString += '}';
 
   return resultString;
 };
@@ -37,7 +38,7 @@ const getSeparatedByKey = (firstObj, secondObj, key) => {
   ];
 };
 
-const getDifference = (first, second) => {
+const genDiff = (first, second) => {
   const firstObj = !first ? {} : JSON.parse(first);
   const secondObj = !second ? {} : JSON.parse(second);
   const allKeys = Object.keys(
@@ -54,4 +55,4 @@ const getDifference = (first, second) => {
   return difference;
 };
 
-export default getDifference;
+export default genDiff;
