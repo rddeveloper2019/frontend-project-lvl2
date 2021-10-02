@@ -9,3 +9,8 @@ lint:
 	
 test:
 	npx jest
+
+w-test:
+	npx jest --watch
+cov-test:
+	npx jest --coverage
