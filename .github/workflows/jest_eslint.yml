@@ -28,3 +28,6 @@ jobs:
     - run: npm i
     - run: make lint
     - run: make test
+    - run: echo $SECRET_TEST_LINT
+      env: 
+        SECRET_TEST_LINT: ${{ secrets.SECRET_TEST_LINT }}
