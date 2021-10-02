@@ -7,5 +7,5 @@ jobs:
       - name: look
         run: echo "Ща увидишь! "
       - name: linit
-        run: make lint
+        run: npx eslint .
         
