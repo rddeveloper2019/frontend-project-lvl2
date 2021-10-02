@@ -6,6 +6,6 @@ jobs:
     steps:
       - name: look
         run: echo "Ща увидишь! "
-      - name: linit
-        run: npx eslint .
+      - name: lint it
+        run: npx eslint src/index.js 
         
