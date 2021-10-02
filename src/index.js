@@ -55,5 +55,4 @@ const genDiff = (first, second) => {
   return difference;
 };
 
-const a;
 export default genDiff;
