@@ -1,4 +1,4 @@
-#Вычислитель отличий
+Вычислитель отличий
 
 | [![Actions Status](https://github.com/rddeveloper2019/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/rddeveloper2019/frontend-project-lvl2/actions) | [![JEST && ESLINT](https://github.com/rddeveloper2019/frontend-project-lvl2/actions/workflows/jest_eslint.yml/badge.svg)](https://github.com/rddeveloper2019/frontend-project-lvl2/actions/workflows/jest_eslint.yml) |
 | ------ | ------ |
