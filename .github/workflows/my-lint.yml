@@ -4,7 +4,8 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - name: look
+        run: echo "Ща увидишь! "
+      - name: linit
         run: make lint
         
