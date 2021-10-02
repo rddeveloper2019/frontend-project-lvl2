@@ -48,7 +48,7 @@ jobs:
           SECRET_TEST_LINT: ${{ secrets.SECRET_TEST_LINT }}
         with:
           coverageCommand: make test-z
-          debug: true
+          debug: false
       
       
       
