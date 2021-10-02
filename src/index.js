@@ -12,7 +12,7 @@ const getResultString = (separatedArray) => {
 
   let resultString = '{\n';
   _.sortBy(temp, (el) => el[1]).forEach((element) => {
-    resultString += `  ${element[0]} ${element[1]}: ${element[2]}\n`;
+    resultString += `${element[0]} ${element[1]}: ${element[2]}\n`;
   });
   resultString += '}';
 

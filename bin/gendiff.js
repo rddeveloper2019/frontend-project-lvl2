@@ -14,7 +14,7 @@ const getFilePath = (filepath = '') => {
 
 const checkAndReadFile = (file) => {
   if (path.extname(file).length === 0) {
-    return '';
+    return '{}';
   }
   return fs.readFileSync(file, 'utf-8', (err, data) => {
     if (err) return err;
@@ -27,10 +27,11 @@ program
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'output format')
   .action(() => {
-    const file1 = getFilePath(process.argv[2]);
-    const file2 = getFilePath(process.argv[3]);
+    const file1 = checkAndReadFile(getFilePath(process.argv[2]));
+    const file2 = checkAndReadFile(getFilePath(process.argv[3]));
 
-    genDiff(checkAndReadFile(file1), checkAndReadFile(file2));
+    genDiff(file1, file2);
   });
 
 program.parse(process.argv);
+export { checkAndReadFile, getFilePath };

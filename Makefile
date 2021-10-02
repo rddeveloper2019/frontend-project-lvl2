@@ -8,9 +8,9 @@ lint:
 	npx eslint .
 	
 test:
-	npx jest
+	npm test
 
-w-test:
-	npx jest --watch
-cov-test:
-	npx jest --coverage
+test-watch:
+	node --experimental-vm-modules 'node_modules/.bin/jest' --watch
+test-coverage:
+	node --experimental-vm-modules 'node_modules/.bin/jest' --coverage
