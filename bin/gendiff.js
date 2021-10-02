@@ -3,7 +3,7 @@
 import program from 'commander';
 import path from 'path';
 import fs from 'fs';
-import getDifference from '../src/index.js';
+import genDiff from '../src/index.js';
 
 const version = '1.0.0';
 
@@ -30,7 +30,7 @@ program
     const file1 = getFilePath(process.argv[2]);
     const file2 = getFilePath(process.argv[3]);
 
-    getDifference(checkAndReadFile(file1), checkAndReadFile(file2));
+    genDiff(checkAndReadFile(file1), checkAndReadFile(file2));
   });
 
 program.parse(process.argv);
