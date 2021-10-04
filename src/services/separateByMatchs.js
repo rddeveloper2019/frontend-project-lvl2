@@ -10,7 +10,6 @@ const separateByMatchs = (obj1, obj2, nestingLevel) => {
   const firstObj = _.isPlainObject(obj1) ? _.cloneDeep(obj1) : {};
   const secondObj = _.isPlainObject(obj2) ? _.cloneDeep(obj2) : {};
   const allKeys = _.union(_.keys(firstObj), _.keys(secondObj));
-
   const separated = [];
 
   allKeys.forEach((key) => {
