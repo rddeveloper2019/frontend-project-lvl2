@@ -10,6 +10,11 @@
 (с) по материалам [Онлайн-школы программирования «Хекслет»](https://ru.hexlet.io/)
 ## //
 
-Поиск различий между двумя "плоскими" json файлами:
+Поиск различий между двумя "плоскими" [json](https://ru.wikipedia.org/wiki/JSON) файлами:
 
 [![asciicast](https://asciinema.org/a/zu7v2S5Ffm4dlHq8cT0zc77my.svg)](https://asciinema.org/a/zu7v2S5Ffm4dlHq8cT0zc77my)
+
+
+Поиск различий между двумя "плоскими" [yaml](https://ru.wikipedia.org/wiki/YAML)  файлами:
+
+[![asciicast](https://asciinema.org/a/i5QZrZxE9kjQMR23dkKSFWAjv.svg)](https://asciinema.org/a/i5QZrZxE9kjQMR23dkKSFWAjv)

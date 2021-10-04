@@ -14,7 +14,7 @@ let fileA;
 let fileB;
 let result;
 
-describe('genDiff JSON-JSON test', () => {
+describe('JSON-JSON test', () => {
   test('a.json b.json', () => {
     fileA = { data: readFile('a.json'), type: '.json' };
     fileB = { data: readFile('b.json'), type: '.json' };
@@ -34,5 +34,25 @@ describe('genDiff JSON-JSON test', () => {
     fileA = { data: readFile('a.json'), type: '.json' };
     result = readFile('toEqual/a-only');
     expect(genDiff(fileA)).toEqual(result);
+  });
+});
+
+describe('YAML-YAML test', () => {
+  test('file1.yml file2.yaml', () => {
+    fileA = { data: readFile('file1.yml'), type: '.yml' };
+    fileB = { data: readFile('file2.yaml'), type: '.yaml' };
+    result = readFile('toEqual/result');
+
+    expect(genDiff(fileA, fileB)).toEqual(result);
+  });
+});
+
+describe('YAML-JSON test', () => {
+  test('file1.yml file2.json', () => {
+    fileA = { data: readFile('file1.yml'), type: '.yml' };
+    fileB = { data: readFile('file2.json'), type: '.json' };
+    result = readFile('toEqual/result');
+
+    expect(genDiff(fileA, fileB)).toEqual(result);
   });
 });
