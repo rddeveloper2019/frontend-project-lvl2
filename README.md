@@ -9,4 +9,7 @@
 ## //
 (с) по материалам [Онлайн-школы программирования «Хекслет»](https://ru.hexlet.io/)
 ## //
-[![asciicast](https://asciinema.org/a/UsSnqaIPkge1eu43TjzzcLQP1.svg)](https://asciinema.org/a/UsSnqaIPkge1eu43TjzzcLQP1)
+
+Поиск различий между двумя "плоскими" json файлами:
+
+[![asciicast](https://asciinema.org/a/zu7v2S5Ffm4dlHq8cT0zc77my.svg)](https://asciinema.org/a/zu7v2S5Ffm4dlHq8cT0zc77my)
