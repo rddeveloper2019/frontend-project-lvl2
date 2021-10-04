@@ -1,8 +1,0 @@
-{
-  - a: only
-  - ab: not similar
-  + ab: not similar
-  + b: only
-    c: similar
-}
-

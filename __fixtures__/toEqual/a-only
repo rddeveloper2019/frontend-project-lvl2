@@ -1,0 +1,5 @@
+{
+  - a: only a
+  - ab: not similar-a
+  - c: similar
+}

@@ -10,23 +10,29 @@ const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-describe('genDiff JSON test', () => {
-  const fileA = readFile('a.json');
-  const fileB = readFile('b.json');
-  const noExtNameFile = readFile('noextname');
+let fileA;
+let fileB;
+let result;
 
+describe('genDiff JSON-JSON test', () => {
   test('a.json b.json', () => {
-    const result = readFile('testResult');
+    fileA = { data: readFile('a.json'), type: '.json' };
+    fileB = { data: readFile('b.json'), type: '.json' };
+    result = readFile('toEqual/testResult');
+    expect(genDiff(fileA, fileB)).toEqual(result);
+  });
+
+  test('file1.json file2.json', () => {
+    fileA = { data: readFile('file1.json'), type: '.json' };
+    fileB = { data: readFile('file2.json'), type: '.json' };
+    result = readFile('toEqual/result');
+
     expect(genDiff(fileA, fileB)).toEqual(result);
   });
 
   test('a.json only', () => {
-    const result = '{\n- a: only a\n- ab: not similar-a\n- c: similar\n}';
+    fileA = { data: readFile('a.json'), type: '.json' };
+    result = readFile('toEqual/a-only');
     expect(genDiff(fileA)).toEqual(result);
-  });
-
-  test('no-ext-name file', () => {
-    const result = '{\n}';
-    expect(genDiff(noExtNameFile)).toEqual(result);
   });
 });
