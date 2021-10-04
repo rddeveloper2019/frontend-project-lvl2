@@ -16,7 +16,7 @@ describe('genDiff JSON test', () => {
   const noExtNameFile = readFile('noextname');
 
   test('a.json b.json', () => {
-    const result = '{\n- a: only a\n- ab: not similar-a\n+ ab: not similar-b\n+ b: only b\n  c: similar\n}';
+    const result = readFile('testResult');
     expect(genDiff(fileA, fileB)).toEqual(result);
   });
 

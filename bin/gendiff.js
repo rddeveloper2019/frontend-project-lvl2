@@ -12,14 +12,30 @@ const getFilePath = (filepath = '') => {
   return res;
 };
 
-const checkAndReadFile = (file) => {
-  if (path.extname(file).length === 0) {
-    return '{}';
+const identifyFileType = (filePath, position) => {
+  const type = path.extname(filePath);
+  if (type.length === 0) {
+    return `Unknown type of ${position} file`;
   }
-  return fs.readFileSync(file, 'utf-8', (err, data) => {
-    if (err) return err;
-    return data;
-  });
+  return type;
+};
+
+const readFile = (file) => fs.readFileSync(file, 'utf-8', (err, data) => {
+  if (err) return err;
+  return data;
+});
+
+const firstFilePath = getFilePath(process.argv[2]);
+const secondFilePath = getFilePath(process.argv[3]);
+
+const firstFile = {
+  data: readFile(firstFilePath),
+  type: identifyFileType(firstFilePath, 'first'),
+};
+
+const secondFile = {
+  data: readFile(secondFilePath),
+  type: identifyFileType(secondFilePath, 'second'),
 };
 
 program
@@ -27,11 +43,9 @@ program
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'output format')
   .action(() => {
-    const file1 = checkAndReadFile(getFilePath(process.argv[2]));
-    const file2 = checkAndReadFile(getFilePath(process.argv[3]));
-
-    genDiff(file1, file2);
+    const difference = genDiff(firstFile, secondFile);
+    console.log(difference);
+    return difference;
   });
 
 program.parse(process.argv);
-export { checkAndReadFile, getFilePath };
