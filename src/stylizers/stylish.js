@@ -1,58 +1,40 @@
 import _ from 'lodash';
 
-const addSpaces = (spacesCount) => {
+const addSpaces = (spacesCount, type = ' ') => {
   const array = [];
-  array.length = spacesCount;
-  return _.chain(array).fill(' ').join('').value();
+  array.length = spacesCount * 2;
+  return _.chain(array).fill(type).join('').value();
 };
 
 const getMarkerBy = (status) => {
-  // if (nodeType !== 'List') return '';
-
   const markers = {
     SIMILAR: ' ',
     DELETED: '-',
     ADDED: '+',
     CORRECTED: '-',
     UPDATED: '+',
-    NON: ' ',
+    NON: '',
   };
-
   return markers[status];
 };
 
-const exp = {
-  key: 'follow',
-  value: false,
-  oldValue: [],
-  nestingLevel: 1,
-  status: 'DELETED',
-  children: [],
-  elementType: 'Simple',
-  nodeType: 'List',
-};
-
-const stylishSimple = (valueWithMeta, requestedStatus) => {
+const print = (valueWithMeta) => {
   const {
-    key, value, oldValue, nestingLevel: count, newValueStatus,
+    key, value, oldValue, nestingLevel: count, newValueStatus, status,
   } = valueWithMeta;
-
-  let { status } = valueWithMeta;
 
   let lineBefore = '';
   let line = '';
 
-  if (requestedStatus === 'NON') {
-    status = 'NON';
-  }
-
   if (newValueStatus) {
-    lineBefore += `${addSpaces(count)} ${getMarkerBy(status)} ${key}: ${oldValue}\n`;
-    line = `${addSpaces(count)} ${getMarkerBy(newValueStatus)} ${key}: ${value}\n`;
-    return lineBefore + line;
+    lineBefore += `${addSpaces(count)}${getMarkerBy(status)}${key}: ${oldValue}\n`;
+    line = `${addSpaces(count)}${getMarkerBy(newValueStatus)}${key}: ${value}\n`;
+    return `${lineBefore}${line}`;
   }
 
-  return `${addSpaces(count)} ${getMarkerBy(status)} ${key}: ${value}\n`;
+  line = `${addSpaces(count)}${getMarkerBy(status)}${key}: ${value}\n`;
+
+  return line;
 };
 
 const stylish = (valuesWithMeta) => {
@@ -62,23 +44,34 @@ const stylish = (valuesWithMeta) => {
     } = item;
 
     const { status } = item;
+    const newStatus = 'NON';
+    const oldStatus = status;
 
     if (item.elementType === 'Simple') {
-      return stylishSimple(item);
+      return print(item);
     }
 
-    const newStatus = 'NON';
     let marker = getMarkerBy(newStatus);
 
-    if (status === 'ADDED' || status === 'DELETED' || status === 'NON') {
-      children.map((item) => item.status = newStatus);
-      marker = getMarkerBy(status);
+    if (oldStatus === 'ADDED' || oldStatus === 'DELETED' || oldStatus === 'NON') {
+      children.map((child) => { child.status = newStatus; });
+      marker = getMarkerBy(oldStatus);
     }
 
-    const line = `${addSpaces(count)} ${marker} ${key}: ${stylish(children)}`;
+    const line = `${addSpaces(count)}${marker}${key}: {\n${stylish(children)}${addSpaces(count)}}\n`;
+
     return line;
   });
-  const result = `{\n${linesArray.join('')}}`;
-  return result;
+
+  const string = linesArray.join('');
+  // string += '}';
+  // linesArray.forEach((line) => {
+  //   string += line;
+  // });
+
+  // let result = _;
+
+  return string;
 };
+
 export default stylish;

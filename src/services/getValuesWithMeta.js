@@ -24,28 +24,13 @@ const getValuesWithMeta = (obj1, obj2, nestingLevel = 1) => {
   const allKeys = _.sortBy(_.union(_.keys(firstObj), _.keys(secondObj)));
 
   const valuesWithMeta = allKeys.map((key) => {
-    const children = getValuesWithMeta(firstObj[key], secondObj[key], nestingLevel + 1);
+    const children = getValuesWithMeta(firstObj[key], secondObj[key], nestingLevel + 1) || [];
     const nodeType1 = checkValueType(firstObj[key]).nodeType;
     const nodeType2 = checkValueType(secondObj[key]).nodeType;
+    console.log(firstObj[key]);
+    console.log(secondObj[key]);
+    // ^ setMeta (key, value, status, nestingLevel, children = [], oldValue = [], newValueStatus = '')
 
-    // ^setMeta (key, value, status, nestingLevel, children = [], oldValue = [])
-    if (nodeType1 === 'List' && nodeType2 === 'List') {
-      if (_.isEqual(firstObj[key], secondObj[key])) {
-        return setMeta(key, firstObj[key], 'SIMILAR', nestingLevel);
-      }
-      if (!_.has(firstObj, key)) {
-        return setMeta(key, secondObj[key], 'ADDED', nestingLevel);
-      }
-      if (!_.has(secondObj, key)) {
-        return setMeta(key, firstObj[key], 'DELETED', nestingLevel);
-      }
-
-      return setMeta(key, secondObj[key], 'DELETED', nestingLevel, [], firstObj[key], 'ADDED');
-    }
-
-    if (_.isEqual(firstObj[key], secondObj[key])) {
-      return setMeta(key, firstObj[key], 'SIMILAR', nestingLevel, children);
-    }
     if (!_.has(firstObj, key)) {
       console.log(children);
       return setMeta(key, secondObj[key], 'ADDED', nestingLevel, children);
@@ -53,11 +38,19 @@ const getValuesWithMeta = (obj1, obj2, nestingLevel = 1) => {
     if (!_.has(secondObj, key)) {
       return setMeta(key, firstObj[key], 'DELETED', nestingLevel, children);
     }
-
+    if (_.isEqual(firstObj[key], secondObj[key])) {
+      return setMeta(key, firstObj[key], 'SIMILAR', nestingLevel, children);
+    }
+    if (nodeType1 !== nodeType2) {
+      return [setMeta(key, firstObj[key], 'DELETED', nestingLevel, children),
+        setMeta(key, secondObj[key], 'ADDED', nestingLevel, children)].flat();
+    }
     return setMeta(key, secondObj[key], 'CORRECTED', nestingLevel, children, firstObj[key], 'UPDATED');
   });
+
   const result = _.chain(valuesWithMeta).flatten().value();
-  console.log(JSON.stringify(result));
+
+  console.log(result);
   return result;
 };
 
