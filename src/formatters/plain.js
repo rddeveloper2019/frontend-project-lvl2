@@ -17,9 +17,9 @@ const getMarkerBy = (status) => {
 
 const printSimple = (valueWithMeta) => {
   const {
-    key, depth: count, newValueStatus, status,
+    key, depth: count, newValueStatus, status, parentNodes,
   } = valueWithMeta;
-
+  console.log(parentNodes);
   let { oldValue, value } = valueWithMeta;
 
   let previousLine = '';
@@ -42,7 +42,7 @@ const printSimple = (valueWithMeta) => {
   return line;
 };
 
-const stylish = (valuesWithMeta) => {
+const plain = (valuesWithMeta) => {
   const newData = ['{\n', ..._.cloneDeep(valuesWithMeta), '}'];
 
   const printAll = (values) => {
@@ -82,4 +82,4 @@ const stylish = (valuesWithMeta) => {
   return printAll(newData);
 };
 
-export default stylish;
+export default plain;

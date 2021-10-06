@@ -145,13 +145,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import _ from 'lodash';
 &nbsp;
-const mtrx = (key, value, status, nestingLevel) =&gt; ({
+const mtrx = (key, value, status, depth) =&gt; ({
   data: [key, value],
   status,
-  nestingLevel,
+  depth,
 });
 &nbsp;
-const separateByMatchs = (obj1, obj2, nestingLevel) =&gt; {
+const separateByMatchs = (obj1, obj2, depth) =&gt; {
   const firstObj = _.isPlainObject(obj1) ? _.cloneDeep(obj1) : <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
   const secondObj = _.isPlainObject(obj2) ? _.cloneDeep(obj2) : <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
   const allKeys = _.union(_.keys(firstObj), _.keys(secondObj));
@@ -159,25 +159,25 @@ const separateByMatchs = (obj1, obj2, nestingLevel) =&gt; {
 &nbsp;
   allKeys.forEach((key) =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (_.isPlainObject(firstObj[key]) || _.isPlainObject(secondObj[key])) {
-<span class="cstat-no" title="statement not covered" >      separated.push(separateByMatchs(firstObj[key], secondObj[key], nestingLevel + 1));</span>
+<span class="cstat-no" title="statement not covered" >      separated.push(separateByMatchs(firstObj[key], secondObj[key], depth + 1));</span>
     }
 &nbsp;
     if (!_.has(firstObj, key) &amp;&amp; _.has(secondObj, key)) {
-      separated.push(mtrx(key, secondObj[key], 'right', nestingLevel));
+      separated.push(mtrx(key, secondObj[key], 'right', depth));
       return;
     }
 &nbsp;
     if (_.has(firstObj, key) &amp;&amp; !_.has(secondObj, key)) {
-      separated.push(mtrx(key, firstObj[key], 'left', nestingLevel));
+      separated.push(mtrx(key, firstObj[key], 'left', depth));
       return;
     }
 &nbsp;
     if (_.isEqual(firstObj[key], secondObj[key])) {
-      separated.push(mtrx(key, firstObj[key], 'both', nestingLevel));
+      separated.push(mtrx(key, firstObj[key], 'both', depth));
       return;
     }
-    separated.push(mtrx(key, firstObj[key], 'left', nestingLevel));
-    separated.push(mtrx(key, secondObj[key], 'right', nestingLevel));
+    separated.push(mtrx(key, firstObj[key], 'left', depth));
+    separated.push(mtrx(key, secondObj[key], 'right', depth));
   });
 &nbsp;
   // ^ Sort by key name

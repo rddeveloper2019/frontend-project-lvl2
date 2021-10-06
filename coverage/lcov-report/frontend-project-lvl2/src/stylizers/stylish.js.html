@@ -246,7 +246,7 @@ const getMarkerBy = (status) =&gt; {
 &nbsp;
 const printSimple = (valueWithMeta) =&gt; {
   const {
-    key, nestingLevel: count, newValueStatus, status,
+    key, depth: count, newValueStatus, status,
   } = valueWithMeta;
 &nbsp;
   let { oldValue, value } = valueWithMeta;
@@ -281,7 +281,7 @@ const stylish = (valuesWithMeta) =&gt; {
       }
 &nbsp;
       const {
-        key, nestingLevel: count, status,
+        key, depth: count, status,
       } = item;
       let { children } = item;
 &nbsp;

@@ -175,11 +175,11 @@ const checkValueType = (data) =&gt; {
   return { type: 'Simple', nodeType: 'List' };
 };
 &nbsp;
-const setMeta = (key, value, status, nestingLevel, children = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span> oldValue = [], newValueStatus = '') =&gt; ({
+const setMeta = (key, value, status, depth, children = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span> oldValue = [], newValueStatus = '') =&gt; ({
   key,
   value,
   oldValue,
-  nestingLevel,
+  depth,
   status,
   newValueStatus,
   children,
@@ -187,33 +187,33 @@ const setMeta = (key, value, status, nestingLevel, children = <span class="branc
   nodeType: checkValueType(value).nodeType,
 });
 &nbsp;
-const getValuesWithMeta = (obj1, obj2, nestingLevel = 1) =&gt; {
+const getValuesWithMeta = (obj1, obj2, depth = 1) =&gt; {
   const firstObj = _.isPlainObject(obj1) ? _.cloneDeep(obj1) : {};
   const secondObj = _.isPlainObject(obj2) ? _.cloneDeep(obj2) : {};
   const allKeys = _.sortBy(_.union(_.keys(firstObj), _.keys(secondObj)));
 &nbsp;
   const valuesWithMeta = allKeys.map((key) =&gt; {
-    const children = getValuesWithMeta(firstObj[key], secondObj[key], nestingLevel + 1) || <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
+    const children = getValuesWithMeta(firstObj[key], secondObj[key], depth + 1) || <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
     const nodeType1 = checkValueType(firstObj[key]).nodeType;
     const nodeType2 = checkValueType(secondObj[key]).nodeType;
 &nbsp;
-    // ^ setMeta (key, value, status, nestingLevel,
+    // ^ setMeta (key, value, status, depth,
     // ^children = [], oldValue = [], newValueStatus = '')
 &nbsp;
     if (!_.has(firstObj, key)) {
-      return setMeta(key, secondObj[key], 'ADDED', nestingLevel, children);
+      return setMeta(key, secondObj[key], 'ADDED', depth, children);
     }
     if (!_.has(secondObj, key)) {
-      return setMeta(key, firstObj[key], 'DELETED', nestingLevel, children);
+      return setMeta(key, firstObj[key], 'DELETED', depth, children);
     }
     if (_.isEqual(firstObj[key], secondObj[key])) {
-      return setMeta(key, firstObj[key], 'SIMILAR', nestingLevel, children);
+      return setMeta(key, firstObj[key], 'SIMILAR', depth, children);
     }
     if (nodeType1 !== nodeType2) {
-      return [setMeta(key, firstObj[key], 'DELETED', nestingLevel, children),
-        setMeta(key, secondObj[key], 'ADDED', nestingLevel, children)].flat();
+      return [setMeta(key, firstObj[key], 'DELETED', depth, children),
+        setMeta(key, secondObj[key], 'ADDED', depth, children)].flat();
     }
-    return setMeta(key, secondObj[key], 'CORRECTED', nestingLevel, children, firstObj[key], 'UPDATED');
+    return setMeta(key, secondObj[key], 'CORRECTED', depth, children, firstObj[key], 'UPDATED');
   });
 &nbsp;
   const result = _.chain(valuesWithMeta).flatten().value();

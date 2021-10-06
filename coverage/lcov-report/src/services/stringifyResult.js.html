@@ -140,7 +140,7 @@ const stringifyResult = (separatedData) =&gt; {
       right: '+',
       both: ' ',
     };
-    const { data: [key, value], status, nestingLevel: count } = item;
+    const { data: [key, value], status, depth: count } = item;
     const string = `${addSpaces(count)} ${labelByStatus[status]} ${key}: ${value}\n`;
     return string;
   };
