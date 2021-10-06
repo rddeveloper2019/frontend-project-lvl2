@@ -28,7 +28,8 @@ const getValuesWithMeta = (obj1, obj2, nestingLevel = 1) => {
     const nodeType1 = checkValueType(firstObj[key]).nodeType;
     const nodeType2 = checkValueType(secondObj[key]).nodeType;
 
-    // ^ setMeta (key, value, status, nestingLevel, children = [], oldValue = [], newValueStatus = '')
+    // ^ setMeta (key, value, status, nestingLevel,
+    // ^          children = [], oldValue = [], newValueStatus = '')
 
     if (!_.has(firstObj, key)) {
       return setMeta(key, secondObj[key], 'ADDED', nestingLevel, children);
@@ -47,7 +48,6 @@ const getValuesWithMeta = (obj1, obj2, nestingLevel = 1) => {
   });
 
   const result = _.chain(valuesWithMeta).flatten().value();
-
   return result;
 };
 

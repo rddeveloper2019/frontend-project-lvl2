@@ -19,13 +19,13 @@ const printSimple = (valueWithMeta) => {
     key, value, oldValue, nestingLevel: count, newValueStatus, status,
   } = valueWithMeta;
 
-  let lineBefore = '';
+  let previousLine = '';
   let line = '';
 
   if (newValueStatus) {
-    lineBefore += `${addSpaces(count)}${getMarkerBy(status)} ${key}: ${oldValue}\n`;
+    previousLine += `${addSpaces(count)}${getMarkerBy(status)} ${key}: ${oldValue}\n`;
     line = `${addSpaces(count)}${getMarkerBy(newValueStatus)} ${key}: ${value}\n`;
-    return `${lineBefore}${line}`;
+    return `${previousLine}${line}`;
   }
 
   line = `${addSpaces(count)}${getMarkerBy(status)} ${key}: ${value}\n`;
@@ -43,8 +43,9 @@ const stylish = (valuesWithMeta) => {
       }
 
       const {
-        key, nestingLevel: count, children, status,
+        key, nestingLevel: count, status,
       } = item;
+      let { children } = item;
 
       if (item.elementType === 'Simple') {
         return printSimple(item);
@@ -53,7 +54,12 @@ const stylish = (valuesWithMeta) => {
       let marker = getMarkerBy('NON');
 
       if (status === 'ADDED' || status === 'DELETED' || status === 'NON') {
-        children.map((child) => { child.status = 'NON'; });
+        children = children.map((oldChild) => {
+          const child = _.cloneDeep(oldChild);
+          child.status = 'NON';
+          return child;
+        });
+
         marker = getMarkerBy(status);
       }
 

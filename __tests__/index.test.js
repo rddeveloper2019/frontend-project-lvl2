@@ -2,7 +2,9 @@ import path, { dirname } from 'path';
 import fs from 'fs';
 
 import { fileURLToPath } from 'url';
-import genDiff from '../src/index';
+import genDiff from '../index';
+import object1 from '../__fixtures__/toEqual/parsed.js';
+import parsedObject from '../src/services/parseToObject.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -15,52 +17,54 @@ let fileB;
 let result;
 
 describe('JSON-JSON test', () => {
-  // test('a.json b.json', () => {
-  //   fileA = { data: readFile('a.json'), type: '.json' };
-  //   fileB = { data: readFile('b.json'), type: '.json' };
-  //   result = readFile('toEqual/testResult');
-  //   expect(genDiff(fileA, fileB)).toEqual(result);
-  // });
-
   test('file1.json file2.json', () => {
-    fileA = { data: readFile('file1.json'), type: '.json' };
-    fileB = { data: readFile('file2.json'), type: '.json' };
+    fileA = getFixturePath('file1.json');
+    fileB = getFixturePath('file2.json');
     result = readFile('toEqual/result');
 
     expect(genDiff(fileA, fileB)).toEqual(result);
   });
 
   test('big1.json big2.json', () => {
-    fileA = { data: readFile('big1.json'), type: '.json' };
-    fileB = { data: readFile('big2.json'), type: '.json' };
+    fileA = getFixturePath('big1.json');
+    fileB = getFixturePath('big2.json');
     result = readFile('toEqual/resultBig');
 
     expect(genDiff(fileA, fileB)).toEqual(result);
   });
-
-  // test('a.json only', () => {
-  //   fileA = { data: readFile('a.json'), type: '.json' };
-  //   result = readFile('toEqual/a-only');
-  //   expect(genDiff(fileA)).toEqual(result);
-  // });
 });
 
-// describe('YAML-YAML test', () => {
-//   test('file1.yml file2.yaml', () => {
-//     fileA = { data: readFile('file1.yml'), type: '.yml' };
-//     fileB = { data: readFile('file2.yaml'), type: '.yaml' };
-//     result = readFile('toEqual/result');
+describe('YAML-YAML test', () => {
+  test('file1.yml file2.yaml', () => {
+    fileA = getFixturePath('file1.yml');
+    fileB = getFixturePath('file2.yaml');
+    result = readFile('toEqual/result');
 
-//     expect(genDiff(fileA, fileB)).toEqual(result);
-//   });
-// });
+    expect(genDiff(fileA, fileB)).toEqual(result);
+  });
+});
 
-// describe('YAML-JSON test', () => {
-//   test('file1.yml file2.json', () => {
-//     fileA = { data: readFile('file1.yml'), type: '.yml' };
-//     fileB = { data: readFile('file2.json'), type: '.json' };
-//     result = readFile('toEqual/result');
+describe('YAML-JSON test', () => {
+  test('file1.yml file2.json', () => {
+    fileA = getFixturePath('file1.yml');
+    fileB = getFixturePath('file2.json');
+    result = readFile('toEqual/result');
 
-//     expect(genDiff(fileA, fileB)).toEqual(result);
-//   });
-// });
+    expect(genDiff(fileA, fileB)).toEqual(result);
+  });
+  test('big1.yml big2.json', () => {
+    fileA = getFixturePath('big1.yml');
+    fileB = getFixturePath('big2.json');
+    result = readFile('toEqual/resultBig');
+
+    expect(genDiff(fileA, fileB)).toEqual(result);
+  });
+});
+
+describe('PARSER test', () => {
+  test('YAML Parser', () => {
+    fileA = { data: readFile('big1.yml'), type: '.yml' };
+
+    expect(parsedObject(fileA)).toEqual(object1);
+  });
+});
