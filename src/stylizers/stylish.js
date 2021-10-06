@@ -1,10 +1,6 @@
 import _ from 'lodash';
 
-const addSpaces = (spacesCount, type = ' ') => {
-  const array = [];
-  array.length = spacesCount * 2;
-  return _.chain(array).fill(type).join('').value();
-};
+const addSpaces = (spacesCount) => ' '.repeat(4 * spacesCount - 2);
 
 const getMarkerBy = (status) => {
   const markers = {
@@ -13,7 +9,7 @@ const getMarkerBy = (status) => {
     ADDED: '+',
     CORRECTED: '-',
     UPDATED: '+',
-    NON: '',
+    NON: ' ',
   };
   return markers[status];
 };
@@ -61,7 +57,7 @@ const stylish = (valuesWithMeta) => {
         marker = getMarkerBy(status);
       }
 
-      const line = `${addSpaces(count)}${marker} ${key}: {\n${printAll(children)}${addSpaces(count)}}\n`;
+      const line = `${addSpaces(count)}${marker} ${key}: {\n${printAll(children)} ${addSpaces(count)} }\n`;
       return line;
     });
 

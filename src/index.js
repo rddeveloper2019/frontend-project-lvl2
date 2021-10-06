@@ -9,7 +9,8 @@ const genDiff = (firstFile = {}, secondFile = {}) => {
 
   const valuesWithMeta = getValuesWithMeta(firstObj, secondObj);
   const result = stylish(valuesWithMeta);
-  console.log(result);
+  // console.log(result);
+  return result;
   // separateByMatchs(firstObj, secondObj);
 
   // const summaryOfDifferences = stringifyResult(separatedData);
