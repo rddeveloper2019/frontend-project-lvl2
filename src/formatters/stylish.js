@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import customStringify from '../services/customStringify.js';
 
 const addSpaces = (spacesCount) => ' '.repeat(4 * spacesCount - 2);
 
@@ -16,12 +17,20 @@ const getMarkerBy = (status) => {
 
 const printSimple = (valueWithMeta) => {
   const {
-    key, value, oldValue, nestingLevel: count, newValueStatus, status,
+    key, nestingLevel: count, newValueStatus, status,
   } = valueWithMeta;
+
+  let { oldValue, value } = valueWithMeta;
 
   let previousLine = '';
   let line = '';
+  if (_.isArray(oldValue)) {
+    oldValue = customStringify(oldValue);
+  }
 
+  if (_.isArray(value)) {
+    value = customStringify(value);
+  }
   if (newValueStatus) {
     previousLine += `${addSpaces(count)}${getMarkerBy(status)} ${key}: ${oldValue}\n`;
     line = `${addSpaces(count)}${getMarkerBy(newValueStatus)} ${key}: ${value}\n`;

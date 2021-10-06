@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import stylish from './src/stylizers/stylish.js';
+import stylish from './src/formatters/stylish.js';
 import parseToObject from './src/services/parseToObject.js';
 import getValuesWithMeta from './src/services/getValuesWithMeta.js';
 
@@ -16,8 +16,8 @@ const getFileData = (filepath) => {
   };
 };
 
-const stylize = (style, data) => {
-  switch (style) {
+const stylize = (format, data) => {
+  switch (format) {
     case ('stylish'):
       return stylish(data);
     default:
@@ -25,12 +25,12 @@ const stylize = (style, data) => {
   }
 };
 
-const genDiff = (path1, path2, style = 'stylish') => {
+const genDiff = (path1, path2, format = 'stylish') => {
   const firstObj = parseToObject(getFileData(path1));
   const secondObj = parseToObject(getFileData(path2));
   const diffsWithMeta = getValuesWithMeta(firstObj, secondObj);
 
-  return stylize(style, diffsWithMeta);
+  return stylize(format, diffsWithMeta);
 };
 
 export default genDiff;

@@ -61,6 +61,16 @@ describe('YAML-JSON test', () => {
   });
 });
 
+describe('YAML-JSON test with ARRAY', () => {
+  test('p1.yml p2.json', () => {
+    fileA = getFixturePath('p1.yml');
+    fileB = getFixturePath('p2.json');
+    result = readFile('toEqual/resultBigWithArray');
+
+    expect(genDiff(fileA, fileB)).toEqual(result);
+  });
+});
+
 describe('PARSER test', () => {
   test('YAML Parser', () => {
     fileA = { data: readFile('big1.yml'), type: '.yml' };
