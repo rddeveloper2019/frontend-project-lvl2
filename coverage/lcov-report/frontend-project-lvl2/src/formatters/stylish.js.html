@@ -232,7 +232,7 @@ import customStringify from '../services/customStringify.js';
 &nbsp;
 const addSpaces = (spacesCount) =&gt; ' '.repeat(4 * spacesCount - 2);
 &nbsp;
-const getMarkerBy = (status) =&gt; {
+const getMarker = (status) =&gt; {
   const markers = {
     SIMILAR: ' ',
     DELETED: '-',
@@ -261,12 +261,12 @@ const printSimple = (valueWithMeta) =&gt; {
     value = customStringify(value);
   }
   if (newValueStatus) {
-    previousLine += `${addSpaces(count)}${getMarkerBy(status)} ${key}: ${oldValue}\n`;
-    line = `${addSpaces(count)}${getMarkerBy(newValueStatus)} ${key}: ${value}\n`;
+    previousLine += `${addSpaces(count)}${getMarker(status)} ${key}: ${oldValue}\n`;
+    line = `${addSpaces(count)}${getMarker(newValueStatus)} ${key}: ${value}\n`;
     return `${previousLine}${line}`;
   }
 &nbsp;
-  line = `${addSpaces(count)}${getMarkerBy(status)} ${key}: ${value}\n`;
+  line = `${addSpaces(count)}${getMarker(status)} ${key}: ${value}\n`;
 &nbsp;
   return line;
 };
@@ -289,7 +289,7 @@ const stylish = (valuesWithMeta) =&gt; {
         return printSimple(item);
       }
 &nbsp;
-      let marker = getMarkerBy('NON');
+      let marker = getMarker('NON');
 &nbsp;
       if (status === 'ADDED' || status === 'DELETED' || status === 'NON') {
         children = children.map((oldChild) =&gt; {
@@ -298,7 +298,7 @@ const stylish = (valuesWithMeta) =&gt; {
           return child;
         });
 &nbsp;
-        marker = getMarkerBy(status);
+        marker = getMarker(status);
       }
 &nbsp;
       const line = `${addSpaces(count)}${marker} ${key}: {\n${printAll(children)} ${addSpaces(count)} }\n`;

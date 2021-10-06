@@ -1,14 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 import parseToObject from './src/services/parseToObject.js';
-import getValuesWithMeta from './src/services/getValuesWithMeta.js';
+import getDiffsWithMeta from './src/services/getDiffsWithMeta.js';
 import selectFormatter from './src/formatters/index.js';
 
 const getFileData = (filepath) => {
-  const filePathB = path.resolve(filepath);
+  const filePath = path.resolve(filepath);
 
   return {
-    data: fs.readFileSync(filePathB, 'utf-8', (err, data) => {
+    data: fs.readFileSync(filePath, 'utf-8', (err, data) => {
       if (err) return err;
       return data;
     }),
@@ -19,7 +19,7 @@ const getFileData = (filepath) => {
 const genDiff = (path1, path2, format = 'stylish') => {
   const firstObj = parseToObject(getFileData(path1));
   const secondObj = parseToObject(getFileData(path2));
-  const diffsWithMeta = getValuesWithMeta(firstObj, secondObj);
+  const diffsWithMeta = getDiffsWithMeta(firstObj, secondObj);
 
   return selectFormatter(format, diffsWithMeta);
 };

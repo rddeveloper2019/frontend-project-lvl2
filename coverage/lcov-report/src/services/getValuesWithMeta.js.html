@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/services/getValuesWithMeta.js</title>
+    <title>Code coverage report for src/services/getDiffsWithMeta.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/services</a> getValuesWithMeta.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/services</a> getDiffsWithMeta.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -169,7 +169,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import _ from 'lodash';
 &nbsp;
-const checkValueType = (data) =&gt; {
+const getNodeType = (data) =&gt; {
   if (_.isPlainObject(data)) return { type: 'Object', nodeType: 'Node' };
   <span class="missing-if-branch" title="if path not taken" >I</span>if (_.isArray(data)) <span class="cstat-no" title="statement not covered" >return { type: 'Array', nodeType: 'Node' };</span>
   return { type: 'Simple', nodeType: 'List' };
@@ -183,19 +183,19 @@ const setMeta = (key, value, status, depth, children = <span class="branch-0 cbr
   status,
   newValueStatus,
   children,
-  elementType: checkValueType(value).type,
-  nodeType: checkValueType(value).nodeType,
+  elementType: getNodeType(value).type,
+  nodeType: getNodeType(value).nodeType,
 });
 &nbsp;
-const getValuesWithMeta = (obj1, obj2, depth = 1) =&gt; {
+const getDiffsWithMeta = (obj1, obj2, depth = 1) =&gt; {
   const firstObj = _.isPlainObject(obj1) ? _.cloneDeep(obj1) : {};
   const secondObj = _.isPlainObject(obj2) ? _.cloneDeep(obj2) : {};
   const allKeys = _.sortBy(_.union(_.keys(firstObj), _.keys(secondObj)));
 &nbsp;
   const valuesWithMeta = allKeys.map((key) =&gt; {
-    const children = getValuesWithMeta(firstObj[key], secondObj[key], depth + 1) || <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
-    const nodeType1 = checkValueType(firstObj[key]).nodeType;
-    const nodeType2 = checkValueType(secondObj[key]).nodeType;
+    const children = getDiffsWithMeta(firstObj[key], secondObj[key], depth + 1) || <span class="branch-1 cbranch-no" title="branch not covered" >[];</span>
+    const nodeType1 = getNodeType(firstObj[key]).nodeType;
+    const nodeType2 = getNodeType(secondObj[key]).nodeType;
 &nbsp;
     // ^ setMeta (key, value, status, depth,
     // ^children = [], oldValue = [], newValueStatus = '')
@@ -221,7 +221,7 @@ const getValuesWithMeta = (obj1, obj2, depth = 1) =&gt; {
   return result;
 };
 &nbsp;
-export default getValuesWithMeta;
+export default getDiffsWithMeta;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

@@ -89,13 +89,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import stylish from './stylizers/stylish.js';
 import parseToObject from './services/parseToObject.js';
-import getValuesWithMeta from './services/getValuesWithMeta.js';
+import getDiffsWithMeta from './services/getDiffsWithMeta.js';
 &nbsp;
 const genDiff = (firstFile = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> secondFile = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; {
   const firstObj = parseToObject(firstFile);
   const secondObj = parseToObject(secondFile);
 &nbsp;
-  const valuesWithMeta = getValuesWithMeta(firstObj, secondObj);
+  const valuesWithMeta = getDiffsWithMeta(firstObj, secondObj);
   const result = stylish(valuesWithMeta);
   console.log(result);
   return result;

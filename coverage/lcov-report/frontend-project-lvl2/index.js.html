@@ -133,7 +133,7 @@
 import path from 'path';
 import stylish from './src/formatters/stylish.js';
 import parseToObject from './src/services/parseToObject.js';
-import getValuesWithMeta from './src/services/getValuesWithMeta.js';
+import getDiffsWithMeta from './src/services/getDiffsWithMeta.js';
 &nbsp;
 const getFileData = (filepath) =&gt; {
   const filePathB = path.resolve(filepath);
@@ -159,7 +159,7 @@ const stylize = (format, data) =&gt; {
 const genDiff = (path1, path2, format = 'stylish') =&gt; {
   const firstObj = parseToObject(getFileData(path1));
   const secondObj = parseToObject(getFileData(path2));
-  const diffsWithMeta = getValuesWithMeta(firstObj, secondObj);
+  const diffsWithMeta = getDiffsWithMeta(firstObj, secondObj);
 &nbsp;
   return stylize(format, diffsWithMeta);
 };

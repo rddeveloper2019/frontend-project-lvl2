@@ -1,29 +1,19 @@
 import _ from 'lodash';
 import customStringify from '../services/customStringify.js';
+import { getMarker } from '../services/utils.js';
 
 const addSpaces = (spacesCount) => ' '.repeat(4 * spacesCount - 2);
 
-const getMarkerBy = (status) => {
-  const markers = {
-    SIMILAR: ' ',
-    DELETED: '-',
-    ADDED: '+',
-    CORRECTED: '-',
-    UPDATED: '+',
-    NON: ' ',
-  };
-  return markers[status];
-};
-
-const printSimple = (valueWithMeta) => {
+const printSimple = (simpleNode) => {
+  console.log('HERE IS PLAIN');
   const {
-    key, depth: count, newValueStatus, status, parentNodes,
-  } = valueWithMeta;
-  console.log(parentNodes);
-  let { oldValue, value } = valueWithMeta;
+    key, depth: count, newValueStatus, status,
+  } = simpleNode;
 
+  let { oldValue, value } = simpleNode;
   let previousLine = '';
   let line = '';
+
   if (_.isArray(oldValue)) {
     oldValue = customStringify(oldValue);
   }
@@ -31,36 +21,31 @@ const printSimple = (valueWithMeta) => {
   if (_.isArray(value)) {
     value = customStringify(value);
   }
+
   if (newValueStatus) {
-    previousLine += `${addSpaces(count)}${getMarkerBy(status)} ${key}: ${oldValue}\n`;
-    line = `${addSpaces(count)}${getMarkerBy(newValueStatus)} ${key}: ${value}\n`;
+    previousLine += `${addSpaces(count)}${getMarker(status)} ${key}: ${oldValue}\n`;
+    line = `${addSpaces(count)}${getMarker(newValueStatus)} ${key}: ${value}\n`;
     return `${previousLine}${line}`;
   }
 
-  line = `${addSpaces(count)}${getMarkerBy(status)} ${key}: ${value}\n`;
+  line = `${addSpaces(count)}${getMarker(status)} ${key}: ${value}\n`;
 
   return line;
 };
 
-const plain = (valuesWithMeta) => {
-  const newData = ['{\n', ..._.cloneDeep(valuesWithMeta), '}'];
-
+const stylish = (diffsWithMeta) => {
   const printAll = (values) => {
     const linesArray = values.map((item) => {
-      if (item === '{\n' || item === '}') {
-        return item;
-      }
-
       const {
-        key, depth: count, status,
+        key, depth: count, status, allNodes,
       } = item;
+      console.log(allNodes);
       let { children } = item;
+      let marker = getMarker('NON');
 
       if (item.elementType === 'Simple') {
         return printSimple(item);
       }
-
-      let marker = getMarkerBy('NON');
 
       if (status === 'ADDED' || status === 'DELETED' || status === 'NON') {
         children = children.map((oldChild) => {
@@ -68,8 +53,7 @@ const plain = (valuesWithMeta) => {
           child.status = 'NON';
           return child;
         });
-
-        marker = getMarkerBy(status);
+        marker = getMarker(status);
       }
 
       const line = `${addSpaces(count)}${marker} ${key}: {\n${printAll(children)} ${addSpaces(count)} }\n`;
@@ -78,8 +62,8 @@ const plain = (valuesWithMeta) => {
 
     return linesArray.join('');
   };
-
-  return printAll(newData);
+  const result = printAll(diffsWithMeta);
+  return `{\n${result}}`;
 };
 
-export default plain;
+export default stylish;
