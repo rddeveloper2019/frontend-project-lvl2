@@ -208,7 +208,7 @@ const getMarker = (status) =&gt; {
     ADDED: '+',
     CORRECTED: '-',
     UPDATED: '+',
-    NON: ' ',
+    BLANK: ' ',
   };
   return markers[status];
 };
@@ -249,10 +249,10 @@ const stylish = (valuesWithMeta) =&gt; {
         return printSimple(item);
       }
 &nbsp;
-      let marker = getMarker('NON');
+      let marker = getMarker('BLANK');
 &nbsp;
-      if (status === 'ADDED' || status === 'DELETED' || status === 'NON') {
-        children.map((child) =&gt; child.status = 'NON');
+      if (status === 'ADDED' || status === 'DELETED' || status === 'BLANK') {
+        children.map((child) =&gt; child.status = 'BLANK');
         marker = getMarker(status);
       }
 &nbsp;

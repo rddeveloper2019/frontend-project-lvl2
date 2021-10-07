@@ -239,7 +239,7 @@ const getMarker = (status) =&gt; {
     ADDED: '+',
     CORRECTED: '-',
     UPDATED: '+',
-    NON: ' ',
+    BLANK: ' ',
   };
   return markers[status];
 };
@@ -289,12 +289,12 @@ const stylish = (valuesWithMeta) =&gt; {
         return printSimple(item);
       }
 &nbsp;
-      let marker = getMarker('NON');
+      let marker = getMarker('BLANK');
 &nbsp;
-      if (status === 'ADDED' || status === 'DELETED' || status === 'NON') {
+      if (status === 'ADDED' || status === 'DELETED' || status === 'BLANK') {
         children = children.map((oldChild) =&gt; {
           const child = _.cloneDeep(oldChild);
-          child.status = 'NON';
+          child.status = 'BLANK';
           return child;
         });
 &nbsp;

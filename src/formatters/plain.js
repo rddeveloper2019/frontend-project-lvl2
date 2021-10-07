@@ -44,16 +44,16 @@ const stylish = (diffsWithMeta) => {
       } = item;
       console.log(allNodes);
       let { children } = item;
-      let marker = getMarker('NON');
+      let marker = getMarker('BLANK');
 
       if (item.elementType === 'Simple') {
         return printSimple(item);
       }
 
-      if (status === 'ADDED' || status === 'DELETED' || status === 'NON') {
+      if (status === 'ADDED' || status === 'DELETED' || status === 'BLANK') {
         children = children.map((oldChild) => {
           const child = _.cloneDeep(oldChild);
-          child.status = 'NON';
+          child.status = 'BLANK';
           return child;
         });
         marker = getMarker(status);

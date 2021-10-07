@@ -4,8 +4,9 @@ const getMarker = (status) => {
     DELETED: '-',
     ADDED: '+',
     UPDATED: '-',
-    PATCHED: '+',
-    NON: ' ',
+    REPLACED: '-',
+    PLACED: '+',
+    BLANK: ' ',
   };
   return markers[status];
 };
@@ -16,8 +17,9 @@ const getKeyword = (status) => {
     DELETED: 'removed',
     ADDED: 'added',
     UPDATED: 'updated',
-    PATCHED: '',
-    NON: '',
+    REPLACED: 'updated',
+    PLACED: ' ',
+    BLANK: '',
   };
   return keywords[status];
 };

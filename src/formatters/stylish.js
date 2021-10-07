@@ -7,16 +7,23 @@ const addSpaces = (spacesCount) => {
   blank.length = 4 * spacesCount - 2;
   return blank.fill(' ').join('');
 };
+console.log('null');
 
-const printSimple = (simpleNode) => {
+const generateLine = (depth, status, key, value) => {
+  const part1 = `${addSpaces(depth)}${getMarker(status)} ${key}:`;
+  const part2 = ` ${value}\n`;
+  if (value === undefined) return part1;
+  return part1 + part2;
+};
+
+const printLastNode = (lastNode) => {
   const {
-    key, depth, additional, status,
-  } = simpleNode;
+    key, depth, status,
+  } = lastNode;
 
-  let { oldValue, value } = simpleNode;
-  let previousLine = '';
-  let line = '';
+  let { oldValue, value } = lastNode;
 
+  //! for Arrays
   if (_.isArray(oldValue)) {
     oldValue = stringifyArray(oldValue);
   }
@@ -25,45 +32,45 @@ const printSimple = (simpleNode) => {
     value = stringifyArray(value);
   }
 
-  if (additional === 'PATCHED') {
-    previousLine += `${addSpaces(depth)}${getMarker(status)} ${key}: ${oldValue}\n`;
-    line = `${addSpaces(depth)}${getMarker(additional)} ${key}: ${value}\n`;
-    return `${previousLine}${line}`;
+  if (status === 'UPDATED') {
+    const previousLine = generateLine(depth, status, key, oldValue);
+    const nextLine = generateLine(depth, 'ADDED', key, value);
+    return `${previousLine}${nextLine}`;
   }
 
-  line = `${addSpaces(depth)}${getMarker(status)} ${key}: ${value}\n`;
-
-  return line;
+  return generateLine(depth, status, key, value);
 };
 
 const stylish = (diffsWithMeta) => {
   const printAll = (values) => {
-    const linesArray = values.map((item) => {
+    const lines = values.map((item) => {
       const {
-        key, depth, status, allNodes,
+        key, depth, status, value,
       } = item;
-      console.log(allNodes);
-      let { children } = item;
-      let marker = getMarker('NON');
 
-      if (item.elementType === 'Simple') {
-        return printSimple(item);
+      let { children } = item;
+
+      if (!_.isPlainObject(value)) {
+        return printLastNode(item);
       }
 
-      if (status === 'ADDED' || status === 'DELETED' || status === 'NON') {
+      const tempStatus = status !== 'UPDATED' ? status : 'BLANK';
+
+      //! removing unnecessary markers;
+
+      if (status !== 'UPDATED') {
         children = children.map((oldChild) => {
           const child = _.cloneDeep(oldChild);
-          child.status = 'NON';
+          child.status = 'BLANK';
           return child;
         });
-        marker = getMarker(status);
       }
 
-      const line = `${addSpaces(depth)}${marker} ${key}: {\n${printAll(children)} ${addSpaces(depth)} }\n`;
+      const line = `${generateLine(depth, tempStatus, key)} {\n${printAll(children)} ${addSpaces(depth)} }\n`;
       return line;
     });
 
-    return linesArray.join('');
+    return lines.join('');
   };
   const result = printAll(diffsWithMeta);
   return `{\n${result}}`;
