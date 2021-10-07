@@ -27,6 +27,7 @@ const getDiffsWithMeta = (obj1, obj2, depth = 1, prevNodes = []) => {
   const valuesWithMeta = allKeys.map((key) => {
     const setNodes = (status) => [...nodeList, { key: status }];
 
+    // eslint-disable-next-line max-len
     const setChildren = (status) => getDiffsWithMeta(firstObj[key], secondObj[key], depth + 1, setNodes(status)) || [];
 
     const nodeType1 = getNodeType(firstObj[key]).nodeType;
