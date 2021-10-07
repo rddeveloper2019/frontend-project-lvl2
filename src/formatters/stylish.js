@@ -1,10 +1,16 @@
 import _ from 'lodash';
-import customStringify from '../services/customStringify.js';
-import { getMarker, addSpaces } from '../services/utils.js';
+import stringifyArray from '../services/stringifyArray.js';
+import { getMarker } from '../services/markers.js';
+
+const addSpaces = (spacesCount) => {
+  const blank = [];
+  blank.length = 4 * spacesCount - 2;
+  return blank.fill(' ').join('');
+};
 
 const printSimple = (simpleNode) => {
   const {
-    key, depth, newValueStatus, status,
+    key, depth, additional, status,
   } = simpleNode;
 
   let { oldValue, value } = simpleNode;
@@ -12,16 +18,16 @@ const printSimple = (simpleNode) => {
   let line = '';
 
   if (_.isArray(oldValue)) {
-    oldValue = customStringify(oldValue);
+    oldValue = stringifyArray(oldValue);
   }
 
   if (_.isArray(value)) {
-    value = customStringify(value);
+    value = stringifyArray(value);
   }
 
-  if (newValueStatus) {
+  if (additional === 'PATCHED') {
     previousLine += `${addSpaces(depth)}${getMarker(status)} ${key}: ${oldValue}\n`;
-    line = `${addSpaces(depth)}${getMarker(newValueStatus)} ${key}: ${value}\n`;
+    line = `${addSpaces(depth)}${getMarker(additional)} ${key}: ${value}\n`;
     return `${previousLine}${line}`;
   }
 

@@ -1,12 +1,10 @@
-const addSpaces = (spacesCount) => ' '.repeat(4 * spacesCount - 2);
-
 const getMarker = (status) => {
   const markers = {
     SIMILAR: ' ',
     DELETED: '-',
     ADDED: '+',
     UPDATED: '-',
-    PATCH: '+',
+    PATCHED: '+',
     NON: ' ',
   };
   return markers[status];
@@ -18,10 +16,10 @@ const getKeyword = (status) => {
     DELETED: 'removed',
     ADDED: 'added',
     UPDATED: 'updated',
-    PATCH: '',
+    PATCHED: '',
     NON: '',
   };
   return keywords[status];
 };
 
-export { getMarker, getKeyword, addSpaces };
+export { getMarker, getKeyword };

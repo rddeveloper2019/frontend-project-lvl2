@@ -1,13 +1,16 @@
 import _ from 'lodash';
-import customStringify from '../services/customStringify.js';
-import { getMarker } from '../services/utils.js';
+import stringifyArray from '../services/stringifyArray.js';
+import { getMarker } from '../services/markers.js';
 
-const addSpaces = (spacesCount) => ' '.repeat(4 * spacesCount - 2);
+const addSpaces = (spacesCount) => {
+  const blank = [];
+  blank.length = 4 * spacesCount - 2;
+  return blank.fill(' ').join('');
+};
 
 const printSimple = (simpleNode) => {
-  console.log('HERE IS PLAIN');
   const {
-    key, depth: count, newValueStatus, status,
+    key, depth, additional, status,
   } = simpleNode;
 
   let { oldValue, value } = simpleNode;
@@ -15,20 +18,20 @@ const printSimple = (simpleNode) => {
   let line = '';
 
   if (_.isArray(oldValue)) {
-    oldValue = customStringify(oldValue);
+    oldValue = stringifyArray(oldValue);
   }
 
   if (_.isArray(value)) {
-    value = customStringify(value);
+    value = stringifyArray(value);
   }
 
-  if (newValueStatus) {
-    previousLine += `${addSpaces(count)}${getMarker(status)} ${key}: ${oldValue}\n`;
-    line = `${addSpaces(count)}${getMarker(newValueStatus)} ${key}: ${value}\n`;
+  if (additional === 'PATCHED') {
+    previousLine += `${addSpaces(depth)}${getMarker(status)} ${key}: ${oldValue}\n`;
+    line = `${addSpaces(depth)}${getMarker(additional)} ${key}: ${value}\n`;
     return `${previousLine}${line}`;
   }
 
-  line = `${addSpaces(count)}${getMarker(status)} ${key}: ${value}\n`;
+  line = `${addSpaces(depth)}${getMarker(status)} ${key}: ${value}\n`;
 
   return line;
 };
@@ -37,7 +40,7 @@ const stylish = (diffsWithMeta) => {
   const printAll = (values) => {
     const linesArray = values.map((item) => {
       const {
-        key, depth: count, status, allNodes,
+        key, depth, status, allNodes,
       } = item;
       console.log(allNodes);
       let { children } = item;
@@ -56,7 +59,7 @@ const stylish = (diffsWithMeta) => {
         marker = getMarker(status);
       }
 
-      const line = `${addSpaces(count)}${marker} ${key}: {\n${printAll(children)} ${addSpaces(count)} }\n`;
+      const line = `${addSpaces(depth)}${marker} ${key}: {\n${printAll(children)} ${addSpaces(depth)} }\n`;
       return line;
     });
 

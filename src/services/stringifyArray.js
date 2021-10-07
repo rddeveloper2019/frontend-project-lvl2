@@ -1,4 +1,4 @@
-const customStringify = (data) => {
+const stringifyArray = (data) => {
   const string = JSON.stringify(data)
     .split('')
     .map((item) => {
@@ -17,4 +17,4 @@ const customStringify = (data) => {
   return string;
 };
 
-export default customStringify;
+export default stringifyArray;
