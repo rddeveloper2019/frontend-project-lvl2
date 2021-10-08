@@ -9,7 +9,7 @@ program
   .version(version)
   .description('Compares two configuration files and shows a difference.')
   .arguments('<filepath1> <filepath2>', 'first filepath, second filepath')
-  .option('-f, --format [type]', 'Output formats: "stylish", "plain" ', 'stylish')
+  .option('-f, --format [type]', 'Output formats: "stylish", "plain", "JSON" ', 'stylish')
   .action((filepath1, filepath2) => {
     const { format } = program.opts();
     const difference = genDiff(filepath1, filepath2, format);

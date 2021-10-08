@@ -23,7 +23,7 @@ const getDiffs = (objectBefore, objectAfter) => {
     if (_.isPlainObject(obj1[key]) && _.isPlainObject(obj2[key])) {
       return {
         itemName: key,
-        status: 'HAS_CHILDREN',
+        status: 'SUBOBJECTS',
         children: getDiffs(obj1[key], obj2[key]),
       };
     }
@@ -46,7 +46,7 @@ const getDiffs = (objectBefore, objectAfter) => {
   });
 
   const result = _.chain(valuesWithMeta).flatten().value();
-  // console.log(JSON.stringify(result));
+
   return result;
 };
 

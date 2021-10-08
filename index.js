@@ -20,7 +20,6 @@ const genDiff = (path1, path2, format = 'stylish') => {
   const firstObj = parseToObject(getFileData(path1));
   const secondObj = parseToObject(getFileData(path2));
   const diffsWithMeta = getDiffs(firstObj, secondObj);
-
   return selectFormatter(format, diffsWithMeta);
 };
 

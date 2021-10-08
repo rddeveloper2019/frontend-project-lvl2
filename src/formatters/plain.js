@@ -44,7 +44,7 @@ const plain = (diffs) => {
       } = item;
 
       const nodeList = [...parentNodes, itemName];
-      if (status !== 'HAS_CHILDREN') {
+      if (status !== 'SUBOBJECTS') {
         return print(item, nodeList);
       }
 
@@ -53,7 +53,6 @@ const plain = (diffs) => {
 
     return lines.join('\n');
   };
-  // console.log(sanitize(diffs));
 
   return sanitize(diffs);
 };

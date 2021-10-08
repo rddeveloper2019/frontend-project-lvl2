@@ -13,7 +13,7 @@ const generateValue = (depth, value) => {
   const lines = keys.map((key) => {
     const part1 = `${addSpaces(depth + 1)}${key}: `;
     const part2 = `${generateValue(depth + 1, value[key])}`;
-    // if (value === undefined) return part1;
+
     return part1 + part2;
   });
   return `{\n${lines.join('\n')}\n${addSpaces(depth)}}`;
@@ -42,7 +42,7 @@ const stylish = (diffs) => {
         itemName, status, children,
       } = item;
 
-      if (status !== 'HAS_CHILDREN') {
+      if (status !== 'SUBOBJECTS') {
         return print(item, depth);
       }
 

@@ -23,16 +23,6 @@ const getKeywords = (selector, path) => {
     default:
       return console.log('Unknown selector', selector);
   }
-
-  // const keywords = {
-  //   SIMILAR: '',
-  //   DELETED: 'removed',
-  //   ADDED: 'added',
-  //   UPDATED: 'updated',
-  //   REPLACED: 'updated',
-  //   PLACED: ' ',
-  //   BLANK: '',
-  // };
 };
 
 export { getMarker, getKeywords };
