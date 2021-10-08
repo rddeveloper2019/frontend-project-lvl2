@@ -64,3 +64,5 @@
  - Генерация отчета в виде json:
 
 [![asciicast](https://asciinema.org/a/6wJBU7EkBBfM3gyeRTyvwXfMB.svg)](https://asciinema.org/a/6wJBU7EkBBfM3gyeRTyvwXfMB)
+
+
