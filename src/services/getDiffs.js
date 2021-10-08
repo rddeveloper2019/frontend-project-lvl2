@@ -27,13 +27,7 @@ const getDiffs = (objectBefore, objectAfter) => {
         children: getDiffs(obj1[key], obj2[key]),
       };
     }
-    if (_.isPlainObject(obj1[key]) && _.isPlainObject(obj2[key])) {
-      return {
-        itemName: key,
-        status: 'HAS_CHILDREN',
-        children: getDiffs(obj1[key], obj2[key]),
-      };
-    }
+
     if (!_.isEqual(obj1[key], obj2[key])) {
       return {
         itemName: key,

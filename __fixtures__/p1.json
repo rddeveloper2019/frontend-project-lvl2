@@ -3,7 +3,12 @@
     "follow": false,
     "setting1": "Value 1",
     "setting3": null,
-    "setting4": ["blah blah",{"number": 45}],
+    "setting4": [
+      "blah blah",
+      {
+        "number": 45
+      }
+    ],
     "setting5": {
       "key5": "value5"
     },
@@ -22,7 +27,12 @@
   },
   "group3": {
     "deep": {
-      "id": [{ "number": 45}, 17]
+      "id": [
+        {
+          "number": 45
+        },
+        17
+      ]
     },
     "fee": 100500
   }

@@ -1,58 +1,61 @@
 import _ from 'lodash';
-import stringifyArray from '../services/stringifyArray.js';
-import { getMarker } from '../services/markers.js';
 
-const addSpaces = (spacesCount) => ' '.repeat(4).repeat(spacesCount);
-const generateValue = (depth, value) => {
-  if (_.isArray(value)) {
-    return stringifyArray(value);
-  }
-  if (!_.isPlainObject(value)) return `${value}`;
+import { getKeywords } from '../services/markers.js';
 
-  const keys = _.keys(value);
-  const lines = keys.map((key) => {
-    const part1 = `${addSpaces(depth + 1)}${key}: `;
-    const part2 = `${generateValue(depth + 1, value[key])}`;
-    // if (value === undefined) return part1;
-    return part1 + part2;
-  });
-  return `{\n${lines.join('\n')}\n${addSpaces(depth)}}`;
+const stringifyValue = ((value) => {
+  if (_.isPlainObject(value) || _.isArray(value)) return '[complex value]';
+  if (_.isString(value)) return `'${value}'`;
+  return value;
+});
+
+const getWasUpdatedFormToStr = (oldValue, newValue) => `From ${stringifyValue(oldValue)} to ${stringifyValue(newValue)}`;
+
+const renderModified = (path, status, itemValue, oldValue) => {
+  const valueBefore = oldValue;
+  const valueAfter = itemValue;
+
+  const firstPart = getKeywords(status, path);
+  const secondPart = getWasUpdatedFormToStr(valueBefore, valueAfter);
+  return `${firstPart + secondPart}`;
 };
 
-const print = (item, depth) => {
+const print = (item, parentNodes) => {
+  const path = parentNodes.map(((node) => node)).join('.');
+
   const {
-    itemName, itemValue, status,
+    status, itemValue, oldValue,
   } = item;
 
   if (status === 'MODIFIED') {
-    const { oldValue } = item;
-    const previousLine = `${addSpaces(depth)}${getMarker('DELETED')}${itemName}: ${generateValue(depth + 1, oldValue)}\n`;
-
-    const nextLine = `${addSpaces(depth)}${getMarker('ADDED')}${itemName}: ${generateValue(depth + 1, itemValue)}\n`;
-    return `${previousLine}${nextLine}`;
+    return renderModified(path, status, itemValue, oldValue);
+  }
+  if (status === 'DELETED') {
+    return `${getKeywords(status, path)}`;
   }
 
-  return `${addSpaces(depth)}${getMarker(status)}${itemName}: ${generateValue(depth + 1, itemValue)}\n`;
+  return `${getKeywords(status, path)}${stringifyValue(itemValue)}`;
 };
 
 const plain = (diffs) => {
-  const sanitize = (values, depth = 0) => {
-    const lines = values.map((item) => {
+  const sanitize = (values, parentNodes = []) => {
+    const lines = values.filter((item) => item.status !== 'SIMILAR').map((item) => {
       const {
         itemName, status, children,
       } = item;
 
+      const nodeList = [...parentNodes, itemName];
       if (status !== 'HAS_CHILDREN') {
-        return print(item, depth);
+        return print(item, nodeList);
       }
 
-      return `${addSpaces(depth)}${getMarker(status)}${itemName}: {\n${sanitize(children, depth + 1)}${addSpaces(depth + 1)}}\n`;
+      return sanitize(children, nodeList);
     });
 
-    return lines.join('');
+    return lines.join('\n');
   };
-  const result = sanitize(diffs);
-  return `{\n${result}}`;
+  // console.log(sanitize(diffs));
+
+  return sanitize(diffs);
 };
 
 export default plain;

@@ -34,6 +34,16 @@ describe('JSON-JSON test', () => {
   });
 });
 
+describe('PLAIN test', () => {
+  test('big1.json big2.json', () => {
+    fileA = getFixturePath('big1.json');
+    fileB = getFixturePath('big2.yaml');
+    result = readFile('toEqual/plainResult');
+
+    expect(genDiff(fileA, fileB, 'plain')).toEqual(result);
+  });
+});
+
 describe('YAML-YAML test', () => {
   test('file1.yml file2.yaml', () => {
     fileA = getFixturePath('file1.yml');

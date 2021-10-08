@@ -1,5 +1,5 @@
-const getMarker = (status) => {
-  switch (status) {
+const getMarker = (selector) => {
+  switch (selector) {
     case ('SIMILAR'):
       return '    ';
     case ('ADDED'):
@@ -12,17 +12,27 @@ const getMarker = (status) => {
   }
 };
 
-const getKeyword = (status) => {
-  const keywords = {
-    SIMILAR: '',
-    DELETED: 'removed',
-    ADDED: 'added',
-    UPDATED: 'updated',
-    REPLACED: 'updated',
-    PLACED: ' ',
-    BLANK: '',
-  };
-  return keywords[status];
+const getKeywords = (selector, path) => {
+  switch (selector) {
+    case 'DELETED':
+      return `Property '${path}' was removed`;
+    case 'ADDED':
+      return `Property '${path}' was added with value: `;
+    case 'MODIFIED':
+      return `Property '${path}' was updated. `;
+    default:
+      return console.log('Unknown selector', selector);
+  }
+
+  // const keywords = {
+  //   SIMILAR: '',
+  //   DELETED: 'removed',
+  //   ADDED: 'added',
+  //   UPDATED: 'updated',
+  //   REPLACED: 'updated',
+  //   PLACED: ' ',
+  //   BLANK: '',
+  // };
 };
 
-export { getMarker, getKeyword };
+export { getMarker, getKeywords };
