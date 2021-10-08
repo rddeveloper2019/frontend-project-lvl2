@@ -1,14 +1,15 @@
 const getMarker = (status) => {
-  const markers = {
-    SIMILAR: ' ',
-    DELETED: '-',
-    ADDED: '+',
-    UPDATED: '-',
-    REPLACED: '-',
-    PLACED: '+',
-    BLANK: ' ',
-  };
-  return markers[status];
+  switch (status) {
+    case ('SIMILAR'):
+      return '    ';
+    case ('ADDED'):
+      return '  + ';
+    case ('DELETED'):
+      return '  - ';
+    default:
+      return '    ';
+      // throw new Error('Unknown status', status);
+  }
 };
 
 const getKeyword = (status) => {

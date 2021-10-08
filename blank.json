@@ -1,416 +1,225 @@
 [
   {
-    "key": "common",
-    "value": {
-      "follow": false,
-      "setting1": "Value 1",
-      "setting3": null,
-      "setting4": "blah blah",
-      "setting5": {
-        "key5": "value5"
-      },
-      "setting6": {
-        "key": "value",
-        "ops": "vops",
-        "doge": {
-          "wow": "so much"
-        }
-      }
-    },
-    "nodes": [],
-    "oldValue": {
-      "setting1": "Value 1",
-      "setting2": 200,
-      "setting3": true,
-      "setting6": {
-        "key": "value",
-        "doge": {
-          "wow": ""
-        }
-      }
-    },
-    "depth": 1,
-    "status": "CORRECTED",
-    "newValueStatus": "UPDATED",
+    "itemName": "wow",
+    "itemValue": "so much",
+    "oldValue": "",
+    "status": "MODIFIED"
+  }
+]
+[
+  {
+    "itemName": "doge",
+    "status": "HAS_CHILDREN",
     "children": [
       {
-        "key": "follow",
-        "value": false,
-        "nodes": [],
-        "oldValue": [
-          "common"
-        ],
-        "depth": 2,
-        "status": "ADDED",
-        "newValueStatus": "",
-        "children": [],
-        "elementType": "Simple",
-        "nodeType": "List"
+        "itemName": "wow",
+        "itemValue": "so much",
+        "oldValue": "",
+        "status": "MODIFIED"
+      }
+    ]
+  },
+  {
+    "itemName": "key",
+    "itemValue": "value",
+    "status": "SIMILAR"
+  },
+  {
+    "itemName": "ops",
+    "itemValue": "vops",
+    "status": "ADDED"
+  }
+]
+[
+  {
+    "itemName": "follow",
+    "itemValue": false,
+    "status": "ADDED"
+  },
+  {
+    "itemName": "setting1",
+    "itemValue": "Value 1",
+    "status": "SIMILAR"
+  },
+  {
+    "itemName": "setting2",
+    "itemValue": 200,
+    "status": "DELETED"
+  },
+  {
+    "itemName": "setting3",
+    "itemValue": null,
+    "oldValue": true,
+    "status": "MODIFIED"
+  },
+  {
+    "itemName": "setting4",
+    "itemValue": "blah blah",
+    "status": "ADDED"
+  },
+  {
+    "itemName": "setting5",
+    "itemValue": {
+      "key5": "value5"
+    },
+    "status": "ADDED"
+  },
+  {
+    "itemName": "setting6",
+    "status": "HAS_CHILDREN",
+    "children": [
+      {
+        "itemName": "doge",
+        "status": "HAS_CHILDREN",
+        "children": [
+          {
+            "itemName": "wow",
+            "itemValue": "so much",
+            "oldValue": "",
+            "status": "MODIFIED"
+          }
+        ]
       },
       {
-        "key": "setting1",
-        "value": "Value 1",
-        "nodes": [],
-        "oldValue": [
-          "common"
-        ],
-        "depth": 2,
-        "status": "SIMILAR",
-        "newValueStatus": "",
-        "children": [],
-        "elementType": "Simple",
-        "nodeType": "List"
+        "itemName": "key",
+        "itemValue": "value",
+        "status": "SIMILAR"
       },
       {
-        "key": "setting2",
-        "value": 200,
-        "nodes": [],
-        "oldValue": [
-          "common"
-        ],
-        "depth": 2,
-        "status": "DELETED",
-        "newValueStatus": "",
-        "children": [],
-        "elementType": "Simple",
-        "nodeType": "List"
+        "itemName": "ops",
+        "itemValue": "vops",
+        "status": "ADDED"
+      }
+    ]
+  }
+]
+[
+  {
+    "itemName": "baz",
+    "itemValue": "bars",
+    "oldValue": "bas",
+    "status": "MODIFIED"
+  },
+  {
+    "itemName": "foo",
+    "itemValue": "bar",
+    "status": "SIMILAR"
+  },
+  {
+    "itemName": "nest",
+    "itemValue": "str",
+    "oldValue": {
+      "key": "value"
+    },
+    "status": "MODIFIED"
+  }
+]
+[
+  {
+    "itemName": "common",
+    "status": "HAS_CHILDREN",
+    "children": [
+      {
+        "itemName": "follow",
+        "itemValue": false,
+        "status": "ADDED"
       },
       {
-        "key": "setting3",
-        "value": null,
-        "nodes": [
-          "common"
-        ],
+        "itemName": "setting1",
+        "itemValue": "Value 1",
+        "status": "SIMILAR"
+      },
+      {
+        "itemName": "setting2",
+        "itemValue": 200,
+        "status": "DELETED"
+      },
+      {
+        "itemName": "setting3",
+        "itemValue": null,
         "oldValue": true,
-        "depth": 2,
-        "status": "CORRECTED",
-        "newValueStatus": "UPDATED",
-        "children": [],
-        "elementType": "Simple",
-        "nodeType": "List"
+        "status": "MODIFIED"
       },
       {
-        "key": "setting4",
-        "value": "blah blah",
-        "nodes": [],
-        "oldValue": [
-          "common"
-        ],
-        "depth": 2,
-        "status": "ADDED",
-        "newValueStatus": "",
-        "children": [],
-        "elementType": "Simple",
-        "nodeType": "List"
+        "itemName": "setting4",
+        "itemValue": "blah blah",
+        "status": "ADDED"
       },
       {
-        "key": "setting5",
-        "value": {
+        "itemName": "setting5",
+        "itemValue": {
           "key5": "value5"
         },
-        "nodes": [],
-        "oldValue": [
-          "common"
-        ],
-        "depth": 2,
-        "status": "ADDED",
-        "newValueStatus": "",
-        "children": [
-          {
-            "key": "key5",
-            "value": "value5",
-            "nodes": [],
-            "oldValue": [
-              "common",
-              "setting5"
-            ],
-            "depth": 3,
-            "status": "ADDED",
-            "newValueStatus": "",
-            "children": [],
-            "elementType": "Simple",
-            "nodeType": "List"
-          }
-        ],
-        "elementType": "Object",
-        "nodeType": "Node"
+        "status": "ADDED"
       },
       {
-        "key": "setting6",
-        "value": {
-          "key": "value",
-          "ops": "vops",
-          "doge": {
-            "wow": "so much"
-          }
-        },
-        "nodes": [
-          "common"
-        ],
-        "oldValue": {
-          "key": "value",
-          "doge": {
-            "wow": ""
-          }
-        },
-        "depth": 2,
-        "status": "CORRECTED",
-        "newValueStatus": "UPDATED",
+        "itemName": "setting6",
+        "status": "HAS_CHILDREN",
         "children": [
           {
-            "key": "doge",
-            "value": {
-              "wow": "so much"
-            },
-            "nodes": [
-              "common",
-              "setting6"
-            ],
-            "oldValue": {
-              "wow": ""
-            },
-            "depth": 3,
-            "status": "CORRECTED",
-            "newValueStatus": "UPDATED",
+            "itemName": "doge",
+            "status": "HAS_CHILDREN",
             "children": [
               {
-                "key": "wow",
-                "value": "so much",
-                "nodes": [
-                  "common",
-                  "setting6",
-                  "doge"
-                ],
+                "itemName": "wow",
+                "itemValue": "so much",
                 "oldValue": "",
-                "depth": 4,
-                "status": "CORRECTED",
-                "newValueStatus": "UPDATED",
-                "children": [],
-                "elementType": "Simple",
-                "nodeType": "List"
+                "status": "MODIFIED"
               }
-            ],
-            "elementType": "Object",
-            "nodeType": "Node"
+            ]
           },
           {
-            "key": "key",
-            "value": "value",
-            "nodes": [],
-            "oldValue": [
-              "common",
-              "setting6"
-            ],
-            "depth": 3,
-            "status": "SIMILAR",
-            "newValueStatus": "",
-            "children": [],
-            "elementType": "Simple",
-            "nodeType": "List"
+            "itemName": "key",
+            "itemValue": "value",
+            "status": "SIMILAR"
           },
           {
-            "key": "ops",
-            "value": "vops",
-            "nodes": [],
-            "oldValue": [
-              "common",
-              "setting6"
-            ],
-            "depth": 3,
-            "status": "ADDED",
-            "newValueStatus": "",
-            "children": [],
-            "elementType": "Simple",
-            "nodeType": "List"
+            "itemName": "ops",
+            "itemValue": "vops",
+            "status": "ADDED"
           }
-        ],
-        "elementType": "Object",
-        "nodeType": "Node"
+        ]
       }
-    ],
-    "elementType": "Object",
-    "nodeType": "Node"
+    ]
   },
   {
-    "key": "group1",
-    "value": {
-      "foo": "bar",
-      "baz": "bars",
-      "nest": "str"
-    },
-    "nodes": [],
-    "oldValue": {
-      "baz": "bas",
-      "foo": "bar",
-      "nest": {
-        "key": "value"
-      }
-    },
-    "depth": 1,
-    "status": "CORRECTED",
-    "newValueStatus": "UPDATED",
+    "itemName": "group1",
+    "status": "HAS_CHILDREN",
     "children": [
       {
-        "key": "baz",
-        "value": "bars",
-        "nodes": [
-          "group1"
-        ],
+        "itemName": "baz",
+        "itemValue": "bars",
         "oldValue": "bas",
-        "depth": 2,
-        "status": "CORRECTED",
-        "newValueStatus": "UPDATED",
-        "children": [],
-        "elementType": "Simple",
-        "nodeType": "List"
+        "status": "MODIFIED"
       },
       {
-        "key": "foo",
-        "value": "bar",
-        "nodes": [],
-        "oldValue": [
-          "group1"
-        ],
-        "depth": 2,
-        "status": "SIMILAR",
-        "newValueStatus": "",
-        "children": [],
-        "elementType": "Simple",
-        "nodeType": "List"
+        "itemName": "foo",
+        "itemValue": "bar",
+        "status": "SIMILAR"
       },
       {
-        "key": "nest",
-        "value": {
+        "itemName": "nest",
+        "itemValue": "str",
+        "oldValue": {
           "key": "value"
         },
-        "nodes": [],
-        "oldValue": [
-          "group1"
-        ],
-        "depth": 2,
-        "status": "DELETED",
-        "newValueStatus": "",
-        "children": [
-          {
-            "key": "key",
-            "value": "value",
-            "nodes": [],
-            "oldValue": [
-              "group1",
-              "nest"
-            ],
-            "depth": 3,
-            "status": "DELETED",
-            "newValueStatus": "",
-            "children": [],
-            "elementType": "Simple",
-            "nodeType": "List"
-          }
-        ],
-        "elementType": "Object",
-        "nodeType": "Node"
-      },
-      {
-        "key": "nest",
-        "value": "str",
-        "nodes": [],
-        "oldValue": [
-          "group1"
-        ],
-        "depth": 2,
-        "status": "ADDED",
-        "newValueStatus": "",
-        "children": [
-          {
-            "key": "key",
-            "value": "value",
-            "nodes": [],
-            "oldValue": [
-              "group1",
-              "nest"
-            ],
-            "depth": 3,
-            "status": "DELETED",
-            "newValueStatus": "",
-            "children": [],
-            "elementType": "Simple",
-            "nodeType": "List"
-          }
-        ],
-        "elementType": "Simple",
-        "nodeType": "List"
+        "status": "MODIFIED"
       }
-    ],
-    "elementType": "Object",
-    "nodeType": "Node"
+    ]
   },
   {
-    "key": "group2",
-    "value": {
+    "itemName": "group2",
+    "itemValue": {
       "abc": 12345,
       "deep": {
         "id": 45
       }
     },
-    "nodes": [],
-    "oldValue": [],
-    "depth": 1,
-    "status": "DELETED",
-    "newValueStatus": "",
-    "children": [
-      {
-        "key": "abc",
-        "value": 12345,
-        "nodes": [],
-        "oldValue": [
-          "group2"
-        ],
-        "depth": 2,
-        "status": "DELETED",
-        "newValueStatus": "",
-        "children": [],
-        "elementType": "Simple",
-        "nodeType": "List"
-      },
-      {
-        "key": "deep",
-        "value": {
-          "id": 45
-        },
-        "nodes": [],
-        "oldValue": [
-          "group2"
-        ],
-        "depth": 2,
-        "status": "DELETED",
-        "newValueStatus": "",
-        "children": [
-          {
-            "key": "id",
-            "value": 45,
-            "nodes": [],
-            "oldValue": [
-              "group2",
-              "deep"
-            ],
-            "depth": 3,
-            "status": "DELETED",
-            "newValueStatus": "",
-            "children": [],
-            "elementType": "Simple",
-            "nodeType": "List"
-          }
-        ],
-        "elementType": "Object",
-        "nodeType": "Node"
-      }
-    ],
-    "elementType": "Object",
-    "nodeType": "Node"
+    "status": "DELETED"
   },
   {
-    "key": "group3",
-    "value": {
+    "itemName": "group3",
+    "itemValue": {
       "deep": {
         "id": {
           "number": 45
@@ -418,81 +227,6 @@
       },
       "fee": 100500
     },
-    "nodes": [],
-    "oldValue": [],
-    "depth": 1,
-    "status": "ADDED",
-    "newValueStatus": "",
-    "children": [
-      {
-        "key": "deep",
-        "value": {
-          "id": {
-            "number": 45
-          }
-        },
-        "nodes": [],
-        "oldValue": [
-          "group3"
-        ],
-        "depth": 2,
-        "status": "ADDED",
-        "newValueStatus": "",
-        "children": [
-          {
-            "key": "id",
-            "value": {
-              "number": 45
-            },
-            "nodes": [],
-            "oldValue": [
-              "group3",
-              "deep"
-            ],
-            "depth": 3,
-            "status": "ADDED",
-            "newValueStatus": "",
-            "children": [
-              {
-                "key": "number",
-                "value": 45,
-                "nodes": [],
-                "oldValue": [
-                  "group3",
-                  "deep",
-                  "id"
-                ],
-                "depth": 4,
-                "status": "ADDED",
-                "newValueStatus": "",
-                "children": [],
-                "elementType": "Simple",
-                "nodeType": "List"
-              }
-            ],
-            "elementType": "Object",
-            "nodeType": "Node"
-          }
-        ],
-        "elementType": "Object",
-        "nodeType": "Node"
-      },
-      {
-        "key": "fee",
-        "value": 100500,
-        "nodes": [],
-        "oldValue": [
-          "group3"
-        ],
-        "depth": 2,
-        "status": "ADDED",
-        "newValueStatus": "",
-        "children": [],
-        "elementType": "Simple",
-        "nodeType": "List"
-      }
-    ],
-    "elementType": "Object",
-    "nodeType": "Node"
+    "status": "ADDED"
   }
 ]

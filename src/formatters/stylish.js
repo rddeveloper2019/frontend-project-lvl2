@@ -2,77 +2,56 @@ import _ from 'lodash';
 import stringifyArray from '../services/stringifyArray.js';
 import { getMarker } from '../services/markers.js';
 
-const addSpaces = (spacesCount) => {
-  const blank = [];
-  blank.length = 4 * spacesCount - 2;
-  return blank.fill(' ').join('');
-};
-console.log('null');
-
-const generateLine = (depth, status, key, value) => {
-  const part1 = `${addSpaces(depth)}${getMarker(status)} ${key}:`;
-  const part2 = ` ${value}\n`;
-  if (value === undefined) return part1;
-  return part1 + part2;
-};
-
-const printLastNode = (lastNode) => {
-  const {
-    key, depth, status,
-  } = lastNode;
-
-  let { oldValue, value } = lastNode;
-
-  //! for Arrays
-  if (_.isArray(oldValue)) {
-    oldValue = stringifyArray(oldValue);
-  }
-
+const addSpaces = (spacesCount) => ' '.repeat(4).repeat(spacesCount);
+const generateValue = (depth, value) => {
   if (_.isArray(value)) {
-    value = stringifyArray(value);
+    return stringifyArray(value);
   }
+  if (!_.isPlainObject(value)) return `${value}`;
 
-  if (status === 'UPDATED') {
-    const previousLine = generateLine(depth, status, key, oldValue);
-    const nextLine = generateLine(depth, 'ADDED', key, value);
+  const keys = _.keys(value);
+  const lines = keys.map((key) => {
+    const part1 = `${addSpaces(depth + 1)}${key}: `;
+    const part2 = `${generateValue(depth + 1, value[key])}`;
+    // if (value === undefined) return part1;
+    return part1 + part2;
+  });
+  return `{\n${lines.join('\n')}\n${addSpaces(depth)}}`;
+};
+
+const print = (item, depth) => {
+  const {
+    itemName, itemValue, status,
+  } = item;
+
+  if (status === 'MODIFIED') {
+    const { oldValue } = item;
+    const previousLine = `${addSpaces(depth)}${getMarker('DELETED')}${itemName}: ${generateValue(depth + 1, oldValue)}\n`;
+
+    const nextLine = `${addSpaces(depth)}${getMarker('ADDED')}${itemName}: ${generateValue(depth + 1, itemValue)}\n`;
     return `${previousLine}${nextLine}`;
   }
 
-  return generateLine(depth, status, key, value);
+  return `${addSpaces(depth)}${getMarker(status)}${itemName}: ${generateValue(depth + 1, itemValue)}\n`;
 };
 
-const stylish = (diffsWithMeta) => {
-  const printAll = (values) => {
+const stylish = (diffs) => {
+  const sanitize = (values, depth = 0) => {
     const lines = values.map((item) => {
       const {
-        key, depth, status, value,
+        itemName, status, children,
       } = item;
 
-      let { children } = item;
-
-      if (!_.isPlainObject(value)) {
-        return printLastNode(item);
+      if (status !== 'HAS_CHILDREN') {
+        return print(item, depth);
       }
 
-      const tempStatus = status !== 'UPDATED' ? status : 'BLANK';
-
-      //! removing unnecessary markers;
-
-      if (status !== 'UPDATED') {
-        children = children.map((oldChild) => {
-          const child = _.cloneDeep(oldChild);
-          child.status = 'BLANK';
-          return child;
-        });
-      }
-
-      const line = `${generateLine(depth, tempStatus, key)} {\n${printAll(children)} ${addSpaces(depth)} }\n`;
-      return line;
+      return `${addSpaces(depth)}${getMarker(status)}${itemName}: {\n${sanitize(children, depth + 1)}${addSpaces(depth + 1)}}\n`;
     });
 
     return lines.join('');
   };
-  const result = printAll(diffsWithMeta);
+  const result = sanitize(diffs);
   return `{\n${result}}`;
 };
 
