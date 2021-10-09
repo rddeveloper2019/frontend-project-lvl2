@@ -9,7 +9,7 @@
 
 (с) по материалам [Онлайн-школы программирования «Хекслет»](https://ru.hexlet.io/)
 
-![](https://raw.githubusercontent.com/rddeveloper2019/rddeveloper2019.github.io/main/project2.png)
+![](https://raw.githubusercontent.com/rddeveloper2019/publicfiles/main/gendiff%20images/project2.png)
 
 
 #
@@ -41,7 +41,7 @@
 
 
 > пример использования в качестве библиотеки:
-![](https://raw.githubusercontent.com/rddeveloper2019/rddeveloper2019.github.io/main/gendiff.png)
+![](https://raw.githubusercontent.com/rddeveloper2019/publicfiles/main/gendiff%20images/gendiff.png)
 
 
 Работа в консоли:
@@ -49,18 +49,18 @@
 
 
 > Вывод всех опций приложения:
-[![asciicast](https://asciinema.org/a/zuFOx4VW5FFFsX5p90JVqiRW9.svg)](https://asciinema.org/a/zuFOx4VW5FFFsX5p90JVqiRW9)
+[![asciicast](https://raw.githubusercontent.com/rddeveloper2019/publicfiles/main/gendiff%20images/gendiff-h.png)](https://asciinema.org/a/zuFOx4VW5FFFsX5p90JVqiRW9)
 
 
 > Генерация отчета в виде plain text:
-[![asciicast](https://raw.githubusercontent.com/rddeveloper2019/publicfiles/main/plain2.png)](https://asciinema.org/a/ga68TPbxtB0zbOBwwPbupDCXb)
+[![asciicast](https://raw.githubusercontent.com/rddeveloper2019/publicfiles/main/gendiff%20images/plain.png)](https://asciinema.org/a/ga68TPbxtB0zbOBwwPbupDCXb)
 
 
 > Генерация отчета в виде stylish:
-[![asciicast](https://raw.githubusercontent.com/rddeveloper2019/publicfiles/main/stylish-2.png)](https://asciinema.org/a/TXgXIKF3kCXrc5CVjhB2fxW3o)
+[![asciicast](https://raw.githubusercontent.com/rddeveloper2019/publicfiles/main/gendiff%20images/stylish.png)](https://asciinema.org/a/TXgXIKF3kCXrc5CVjhB2fxW3o)
 
 
 > Генерация отчета в виде json:
-[![asciicast](https://raw.githubusercontent.com/rddeveloper2019/publicfiles/main/json2.png)](https://asciinema.org/a/6wJBU7EkBBfM3gyeRTyvwXfMB)
+[![asciicast](https://raw.githubusercontent.com/rddeveloper2019/publicfiles/main/gendiff%20images/json2.png)](https://asciinema.org/a/6wJBU7EkBBfM3gyeRTyvwXfMB)
 
 
