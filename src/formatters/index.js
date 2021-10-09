@@ -11,7 +11,7 @@ const selectFormatter = (format, data) => {
     case ('json'):
       return json(data);
     default:
-      return 'Unknown format';
+      throw new Error(`Invalid file extension <${format}>`);
   }
 };
 

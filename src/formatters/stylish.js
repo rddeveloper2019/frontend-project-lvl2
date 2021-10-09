@@ -1,12 +1,9 @@
 import _ from 'lodash';
-import stringifyArray from '../services/stringifyArray.js';
+
 import { getMarker } from '../services/markers.js';
 
 const addSpaces = (spacesCount) => ' '.repeat(4).repeat(spacesCount);
 const generateValue = (depth, value) => {
-  if (_.isArray(value)) {
-    return stringifyArray(value);
-  }
   if (!_.isPlainObject(value)) return `${value}`;
 
   const keys = _.keys(value);

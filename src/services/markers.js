@@ -6,13 +6,15 @@ const getMarker = (selector) => {
       return '  + ';
     case ('DELETED'):
       return '  - ';
-    default:
+    case ('SUBOBJECTS'):
       return '    ';
-      // throw new Error('Unknown status', status);
+    default:
+      throw new Error(`Invalid marker selector  <${selector}>`);
   }
 };
 
 const getKeywords = (selector, path) => {
+  if (!path) throw new Error(`required  path not received: <${path}>`);
   switch (selector) {
     case 'DELETED':
       return `Property '${path}' was removed`;
@@ -21,7 +23,7 @@ const getKeywords = (selector, path) => {
     case 'MODIFIED':
       return `Property '${path}' was updated. `;
     default:
-      return console.log('Unknown selector', selector);
+      throw new Error(`Invalid keyword selector <${selector}>`);
   }
 };
 

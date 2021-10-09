@@ -8,7 +8,7 @@ const parseToObject = ({ data, type }) => {
     case '.yml':
       return YAMLparse(data);
     default:
-      return {};
+      throw new Error(`parseObjects: invalid parser type <${type}>`);
   }
 };
 

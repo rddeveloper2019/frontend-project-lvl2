@@ -1,11 +1,12 @@
 import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
-import parseToObject from './src/services/parseToObject.js';
-import getDiffs from './src/services/getDiffs.js';
+import parse from './src/services/parsers.js';
+import getDiffs from './src/getDiffs.js';
 import selectFormatter from './src/formatters/index.js';
 
 const getFileData = (filepath) => {
+  if (!filepath) throw new Error(`getFileData: invalid filepath <${filepath}>`);
   const filePath = path.resolve(filepath);
 
   return {
@@ -18,12 +19,13 @@ const getFileData = (filepath) => {
 };
 
 const genDiff = (path1, path2, format = 'stylish') => {
-  const firstObj = _.isPlainObject(path1) ? path1 : parseToObject(getFileData(path1));
-  const secondObj = _.isPlainObject(path2) ? path2 : parseToObject(getFileData(path2));
-  const diffsWithMeta = getDiffs(firstObj, secondObj);
+  const firstObj = _.isPlainObject(path1) ? path1 : parse(getFileData(path1));
+  const secondObj = _.isPlainObject(path2) ? path2 : parse(getFileData(path2));
 
+  const diffsWithMeta = getDiffs(firstObj, secondObj);
   const diffs = selectFormatter(format, diffsWithMeta);
-  console.log(diffs);
+
+  return diffs;
 };
 
 export default genDiff;
