@@ -1,4 +1,5 @@
 import fs from 'fs';
+import _ from 'lodash';
 import path from 'path';
 import parseToObject from './src/services/parseToObject.js';
 import getDiffs from './src/services/getDiffs.js';
@@ -17,10 +18,12 @@ const getFileData = (filepath) => {
 };
 
 const genDiff = (path1, path2, format = 'stylish') => {
-  const firstObj = parseToObject(getFileData(path1));
-  const secondObj = parseToObject(getFileData(path2));
+  const firstObj = _.isPlainObject(path1) ? path1 : parseToObject(getFileData(path1));
+  const secondObj = _.isPlainObject(path2) ? path2 : parseToObject(getFileData(path2));
   const diffsWithMeta = getDiffs(firstObj, secondObj);
-  return selectFormatter(format, diffsWithMeta);
+
+  const diffs = selectFormatter(format, diffsWithMeta);
+  console.log(diffs);
 };
 
 export default genDiff;
