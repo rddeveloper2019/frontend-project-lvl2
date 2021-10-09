@@ -8,14 +8,10 @@ const stringifyValue = ((value) => {
   return value;
 });
 
-const getWasUpdatedFormToStr = (oldValue, newValue) => `From ${stringifyValue(oldValue)} to ${stringifyValue(newValue)}`;
-
-const renderModified = (path, status, itemValue, oldValue) => {
-  const valueBefore = oldValue;
-  const valueAfter = itemValue;
-
+const renderModified = (path, status, currentValue, oldValue) => {
   const firstPart = getKeywords(status, path);
-  const secondPart = getWasUpdatedFormToStr(valueBefore, valueAfter);
+  const secondPart = `From ${stringifyValue(oldValue)} to ${stringifyValue(currentValue)}`;
+
   return `${firstPart + secondPart}`;
 };
 
