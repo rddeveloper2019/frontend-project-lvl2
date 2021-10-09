@@ -38,7 +38,21 @@
 - [x] подключение дополнительных библиотек, 
 - [x] создание git-репозитория
 
+ для установки приложения требуется наличие  [Node.js  NPM](https://nodejs.org/en/),  [Git](https://git-scm.com/)
+ 
+ `$ git clone https://github.com/rddeveloper2019/frontend-project-lvl2.git`
+ 
+`$ cd frontend-project-lvl2`
 
+`$ make install`
+
+`$ make publish`
+
+`$ sudo npm link`
+
+Пример установки:
+
+[![asciicast](https://asciinema.org/a/h9s4uSFs8KmAgAL3PvSHwxFIv.svg)](https://asciinema.org/a/h9s4uSFs8KmAgAL3PvSHwxFIv)
 
 > пример использования в качестве библиотеки:
 ![](https://raw.githubusercontent.com/rddeveloper2019/publicfiles/main/gendiff%20images/gendiff.png)
