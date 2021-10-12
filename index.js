@@ -10,11 +10,8 @@ const getFileData = (filepath) => {
   const filePath = path.resolve(filepath);
 
   return {
-    data: fs.readFileSync(filePath, 'utf-8', (err, data) => {
-      if (err) return err;
-      return data;
-    }),
-    type: path.extname(filepath),
+    data: fs.readFileSync(filePath, 'utf-8'),
+    type: path.extname(filepath).slice(1),
   };
 };
 

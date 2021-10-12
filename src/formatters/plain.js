@@ -1,6 +1,18 @@
 import _ from 'lodash';
 
-import { getKeywords } from '../services/markers.js';
+export const getKeywords = (selector, path) => {
+  if (!path) throw new Error(`required  path not received: <${path}>`);
+  switch (selector) {
+    case 'DELETED':
+      return `Property '${path}' was removed`;
+    case 'ADDED':
+      return `Property '${path}' was added with value: `;
+    case 'MODIFIED':
+      return `Property '${path}' was updated. `;
+    default:
+      throw new Error(`Invalid keyword selector <${selector}>`);
+  }
+};
 
 const stringifyValue = ((value) => {
   if (_.isPlainObject(value) || _.isArray(value)) return '[complex value]';
@@ -8,43 +20,33 @@ const stringifyValue = ((value) => {
   return value;
 });
 
-const renderModified = (path, status, currentValue, oldValue) => {
-  const firstPart = getKeywords(status, path);
-  const secondPart = `From ${stringifyValue(oldValue)} to ${stringifyValue(currentValue)}`;
-
-  return `${firstPart + secondPart}`;
-};
-
-const print = (item, parentNodes) => {
-  const path = parentNodes.map(((node) => node)).join('.');
-
-  const {
-    status, itemValue, oldValue,
-  } = item;
-
-  if (status === 'MODIFIED') {
-    return renderModified(path, status, itemValue, oldValue);
-  }
-  if (status === 'DELETED') {
-    return `${getKeywords(status, path)}`;
-  }
-
-  return `${getKeywords(status, path)}${stringifyValue(itemValue)}`;
-};
-
 const plain = (diffs) => {
   const sanitize = (values, parentNodes = []) => {
     const lines = values.filter((item) => item.status !== 'SIMILAR').map((item) => {
       const {
-        itemName, status, children,
+        itemName, status, children, itemValue, oldValue,
       } = item;
 
       const nodeList = [...parentNodes, itemName];
-      if (status !== 'SUBOBJECTS') {
-        return print(item, nodeList);
+      const path = nodeList.map(((node) => node)).join('.');
+
+      if (status === 'SUBOBJECTS') {
+        return sanitize(children, nodeList);
       }
 
-      return sanitize(children, nodeList);
+      const basicInformation = getKeywords(status, path);
+
+      if (status === 'MODIFIED') {
+        const valueDetails = `From ${stringifyValue(oldValue)} to ${stringifyValue(itemValue)}`;
+
+        return `${basicInformation}${valueDetails}`;
+      }
+
+      if (status === 'DELETED') {
+        return `${basicInformation}`;
+      }
+
+      return `${basicInformation}${stringifyValue(itemValue)}`;
     });
 
     return lines.join('\n');

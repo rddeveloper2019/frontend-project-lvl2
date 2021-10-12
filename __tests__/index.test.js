@@ -4,7 +4,9 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import genDiff from '../index';
 import selectFormatter from '../src/formatters/index.js';
-import { getMarker, getKeywords } from '../src/services/markers';
+import { getKeywords } from '../src/formatters/plain.js';
+import { getMarker } from '../src/formatters/stylish.js';
+
 import parse from '../src/services/parsers.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,7 +17,7 @@ const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8'
 
 const fileA = getFixturePath('big1.json');
 const fileB = getFixturePath('big2.yaml');
-
+const invalid = 'INVALID';
 const blankObj = {};
 
 describe('STYLISH test', () => {
@@ -50,19 +52,15 @@ describe('Blank obj test', () => {
 
 describe('FORMATS & SELECTORS & TYPES tests', () => {
   test('selectFormatter', () => {
-    const invalid = 'INVALID';
     expect(() => selectFormatter(invalid, {})).toThrow(`Invalid file extension <${invalid}`);
   });
   test('selectMarker', () => {
-    const invalid = 'INVALID';
     expect(() => getMarker(invalid)).toThrow(`Invalid marker selector  <${invalid}>`);
   });
   test('selectKeywords', () => {
-    const invalid = 'INVALID';
     expect(() => getKeywords(invalid, 'data')).toThrow(`Invalid keyword selector <${invalid}>`);
   });
   test('parse', () => {
-    const invalid = 'INVALID';
     expect(() => parse({ data: 'data', type: invalid })).toThrow(`parseObjects: invalid parser type <${invalid}>`);
   });
 });

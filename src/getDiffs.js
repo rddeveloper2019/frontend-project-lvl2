@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
 const getDiffs = (objectBefore, objectAfter) => {
-  const obj1 = _.isPlainObject(objectBefore) ? _.cloneDeep(objectBefore) : {};
-  const obj2 = _.isPlainObject(objectAfter) ? _.cloneDeep(objectAfter) : {};
+  const obj1 = _.isPlainObject(objectBefore) ? objectBefore : {};
+  const obj2 = _.isPlainObject(objectAfter) ? objectAfter : {};
   const keys = _.sortBy(_.union(_.keys(objectBefore), _.keys(objectAfter)));
   const valuesWithMeta = keys.map((key) => {
     if (!_.has(obj1, key)) {
@@ -45,9 +45,7 @@ const getDiffs = (objectBefore, objectAfter) => {
     };
   });
 
-  const result = _.chain(valuesWithMeta).flatten().value();
-
-  return result;
+  return valuesWithMeta;
 };
 
 export default getDiffs;

@@ -46,8 +46,6 @@
 
 `$ make install`
 
-`$ make publish`
-
 `$ sudo npm link`
 
 Пример установки:
