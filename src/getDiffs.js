@@ -1,9 +1,7 @@
 import _ from 'lodash';
 
-const getDiffs = (objectBefore, objectAfter) => {
-  const obj1 = _.isPlainObject(objectBefore) ? objectBefore : {};
-  const obj2 = _.isPlainObject(objectAfter) ? objectAfter : {};
-  const keys = _.sortBy(_.union(_.keys(objectBefore), _.keys(objectAfter)));
+const getDiffs = (obj1, obj2) => {
+  const keys = _.sortBy(_.union(_.keys(obj1), _.keys(obj2)));
   const valuesWithMeta = keys.map((key) => {
     if (!_.has(obj1, key)) {
       return {
