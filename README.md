@@ -18,7 +18,7 @@
 
 
  - Возможность использования в качестве библиотеки или отдельного консольного приложения
- - Поддержка JS-объектов (ассоциативный массив `{key: 'name'}`), а также абсолютных и относительных путей к файлам
+ - Поддержка абсолютных и относительных путей к файлам
  - Поддержка разных входных форматов: yaml, json
  - Генерация отчета в виде plain text, stylish и json
 
@@ -53,7 +53,7 @@
 [![asciicast](https://asciinema.org/a/h9s4uSFs8KmAgAL3PvSHwxFIv.svg)](https://asciinema.org/a/h9s4uSFs8KmAgAL3PvSHwxFIv)
 
 > пример использования в качестве библиотеки:
-![](https://raw.githubusercontent.com/rddeveloper2019/publicfiles/main/gendiff%20images/gendiff.png)
+![](https://raw.githubusercontent.com/rddeveloper2019/publicfiles/main/gendiff%20images/gendiff_import_example.png)
 
 
 Работа в консоли:
