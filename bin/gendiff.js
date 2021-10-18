@@ -1,7 +1,7 @@
 #!/usr/bin/node
 
 import program from 'commander';
-import genDiff from '../index.js';
+import genDiff from '../src/index.js';
 
 const version = '1.0.0';
 

@@ -13,13 +13,12 @@ const plain = (diffs) => {
         itemName, status,
       } = item;
 
-      const path = [...parentNodes, itemName].map(((node) => node)).join('.');
+      const path = [...parentNodes, itemName].join('.');
 
       switch (status) {
         case 'SUBOBJECTS': {
           const { children } = item;
-          const nodeList = [...parentNodes, itemName];
-          return sanitize(children, nodeList);
+          return sanitize(children, [...parentNodes, itemName]);
         }
 
         case 'MODIFIED': {

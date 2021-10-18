@@ -1,14 +1,15 @@
 import { parse as YAMLparse } from 'yaml';
 
-const parseToObject = (data, parserType) => {
-  switch (parserType) {
+const parseToObject = (fileData) => {
+  const { readData, format } = fileData;
+  switch (format) {
     case 'json':
-      return JSON.parse(data);
+      return JSON.parse(readData);
     case 'yaml':
     case 'yml':
-      return YAMLparse(data);
+      return YAMLparse(readData);
     default:
-      throw new Error(`parseObjects: invalid parser type <${parserType}>`);
+      throw new Error(`parseObjects: invalid format type <${format}>`);
   }
 };
 

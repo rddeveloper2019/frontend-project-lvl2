@@ -16,6 +16,7 @@ export const getMarker = (selector) => {
 };
 
 const addSpaces = (spacesCount) => ' '.repeat(4).repeat(spacesCount);
+
 const generateValue = (depth, value) => {
   if (!_.isPlainObject(value)) return `${value}`;
 
@@ -33,22 +34,33 @@ const stylish = (diffs) => {
   const sanitize = (values, depth = 0) => {
     const lines = values.map((item) => {
       const {
-        itemName, status, children, itemValue,
+        itemName, status,
       } = item;
 
-      if (status === 'SUBOBJECTS') {
-        return `${addSpaces(depth)}${getMarker(status)}${itemName}: {\n${sanitize(children, depth + 1)}${addSpaces(depth + 1)}}\n`;
+      switch (status) {
+        case 'SUBOBJECTS': {
+          const { children } = item;
+          return `${addSpaces(depth)}${getMarker(status)}${itemName}: {\n${sanitize(children, depth + 1)}${addSpaces(depth + 1)}}\n`;
+        }
+
+        case 'MODIFIED': {
+          const { oldValue, itemValue } = item;
+          const previousLine = `${addSpaces(depth)}${getMarker('DELETED')}${itemName}: ${generateValue(depth + 1, oldValue)}\n`;
+
+          const nextLine = `${addSpaces(depth)}${getMarker('ADDED')}${itemName}: ${generateValue(depth + 1, itemValue)}\n`;
+          return `${previousLine}${nextLine}`;
+        }
+
+        case 'ADDED':
+        case 'DELETED':
+        case 'SIMILAR': {
+          const { itemValue } = item;
+          return `${addSpaces(depth)}${getMarker(status)}${itemName}: ${generateValue(depth + 1, itemValue)}\n`;
+        }
+
+        default:
+          throw new Error(`Invalid status selector: <${status}>`);
       }
-
-      if (status === 'MODIFIED') {
-        const { oldValue } = item;
-        const previousLine = `${addSpaces(depth)}${getMarker('DELETED')}${itemName}: ${generateValue(depth + 1, oldValue)}\n`;
-
-        const nextLine = `${addSpaces(depth)}${getMarker('ADDED')}${itemName}: ${generateValue(depth + 1, itemValue)}\n`;
-        return `${previousLine}${nextLine}`;
-      }
-
-      return `${addSpaces(depth)}${getMarker(status)}${itemName}: ${generateValue(depth + 1, itemValue)}\n`;
     });
 
     return lines.join('');
