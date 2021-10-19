@@ -21,16 +21,15 @@
   },
   "homepage": "https://github.com/rddeveloper2019/frontend-project-lvl2#readme",
   "dependencies": {
-    "colors": "^1.4.0",
     "commander": "^8.2.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-jest": "^24.5.0",
     "jest": "^27.2.4",
     "lodash": "^4.17.21",
     "yaml": "2.0.0-8"
   },
   "devDependencies": {
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^24.5.0",
     "eslint": "^7.32.0"
   }
 }

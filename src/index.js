@@ -12,6 +12,7 @@ const genDiff = (path1, path2, format = 'stylish') => {
   const secondObj = parse(fileData2);
 
   const diffsWithMeta = getDiffs(firstObj, secondObj);
+
   const diffs = selectFormatter(format, diffsWithMeta);
 
   return diffs;

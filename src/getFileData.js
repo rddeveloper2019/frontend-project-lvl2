@@ -3,9 +3,9 @@ import path from 'path';
 
 const getFileData = (filepath) => {
   const filePath = path.resolve(filepath);
-  const readData = fs.readFileSync(filePath, 'utf-8');
+  const data = fs.readFileSync(filePath, 'utf-8');
   const format = path.extname(filepath).slice(1);
-  return { readData, format };
+  return { data, format };
 };
 
 export default getFileData;
